@@ -139,7 +139,7 @@ const ARR_CHECK: IntTestUnit[] = [
             "Способ работы с асинхронным кодом",
             "Механизм изменения контекста выполнения функции",
         ],
-        answer: 2,
+        answer: 1,
         category: "",
         weight: 1,
         explanation: `
@@ -154,7 +154,7 @@ const ARR_CHECK: IntTestUnit[] = [
             "Создание экземпляра класса",
             "Выход из цикла",
         ],
-        answer: 3,
+        answer: 1,
         category: "",
         weight: 1,
         explanation: `
@@ -165,7 +165,7 @@ const ARR_CHECK: IntTestUnit[] = [
         question: "Что будет результатом выполнения данного кода?",
         questionImg: id_9,
         variants: ["true false", "null null", "42 null", "42 42"],
-        answer: 3,
+        answer: 2,
         category: "code",
         weight: 1,
         explanation: `
@@ -183,7 +183,7 @@ const ARR_CHECK: IntTestUnit[] = [
         question: "Что будет результатом выполнения данного кода?",
         questionImg: id_10,
         variants: ["logOr logAnd", "logOr", "logAnd", "Ошибка"],
-        answer: 2,
+        answer: 1,
         category: "code",
         weight: 1,
         explanation: `

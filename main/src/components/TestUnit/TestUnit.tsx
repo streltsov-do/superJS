@@ -10,6 +10,7 @@ import {
     Checkbox,
     Image,
 } from "antd";
+
 import type { CheckboxValueType } from "antd/es/checkbox/Group";
 
 import { ARR_CHECK, compareNumbers, IntTestUnit } from "./constants";
@@ -85,13 +86,7 @@ function TestUnit(props: PropsTestUnit) {
     return (
         <>
             <Card
-                cover={
-                    questionImg ? (
-                        <Image src={questionImg} width="300px" />
-                    ) : (
-                        <></>
-                    )
-                }
+                cover={questionImg && <Image src={questionImg} width="300px" alt={`img_${id}`}/>}
                 title={num + ". " + question}
             >
                 {typeof answer !== "number" ? (

@@ -6,8 +6,8 @@ import { ARR_CHECK, IntResults, IntTestUnit } from "../TestUnit/constants";
 import { Button, Space } from "antd";
 import { Typography } from "antd";
 import { TestResult } from "../TestResult/TestResult";
-import { IntStateTest } from "../../redux/sliceTest";
-import { useAppSelector } from "../../redux/hooks";
+import { CHANGE, IntStateTest } from "../../redux/sliceTest";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { RootState } from "../../redux/reducers";
 
 const { Title } = Typography;
@@ -50,6 +50,7 @@ const Main = () => {
     });
 
     const testState = useAppSelector((state: RootState) => state.test);
+    const dispatch = useAppDispatch();
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
         let res: IntResults = {
@@ -58,9 +59,13 @@ const Main = () => {
         };
         if (!complete) {
             res = getResults(ARR_CHECK, testState);
-            console.log("results", res);
+            // console.log("results", res);
             setResults(res);
+        } else {
+            const newState: IntStateTest[] = [];
+            dispatch(CHANGE(newState));
         }
+        setResults(res);
         setComplete(!complete);
     };
 
