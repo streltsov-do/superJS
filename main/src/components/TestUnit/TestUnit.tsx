@@ -8,10 +8,11 @@ import {
     Space,
     Switch,
     Checkbox,
+    Image,
 } from "antd";
 import type { CheckboxValueType } from "antd/es/checkbox/Group";
 
-import { ARR_CHECK, IntTestUnit } from "./constants";
+import { ARR_CHECK, compareNumbers, IntTestUnit } from "./constants";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { CHANGE, IntStateTest } from "../../redux/sliceTest";
 // import { changeEx } from "../../redux/sliceExample";
@@ -25,7 +26,7 @@ interface PropsTestUnit extends IntTestUnit {
 const setNewState = (
     state: IntStateTest[],
     id: number,
-    newAnswerId: number | number[],
+    newAnswer: number | number[],
 ) => {
     const newState: IntStateTest[] = [];
     state.forEach((element, index) => {
@@ -34,9 +35,13 @@ const setNewState = (
 
     const idx = state.map((x) => x.id).indexOf(id);
     if (idx === -1) {
-        newState.push({ id: id, answerId: newAnswerId });
+        newState.push({ id: id, answer: newAnswer });
     } else {
-        newState[idx] = { id: id, answerId: newAnswerId };
+        let newAnswerSort = newAnswer;
+        if (Array.isArray(newAnswerSort)) {
+            newAnswerSort.sort(compareNumbers);
+        }
+        newState[idx] = { id: id, answer: newAnswerSort };
     }
     return newState;
 };
@@ -48,9 +53,10 @@ function TestUnit(props: PropsTestUnit) {
         num = -1,
         id = -1,
         question = "Question, mark?",
+        questionImg,
         variants = ["a", "b", "c"],
-        answerId = 2,
-        answer = "",
+        answer = 2,
+        explanation = "",
     } = props;
 
     const stateTest = useAppSelector((state: RootState) => state.test);
@@ -60,26 +66,35 @@ function TestUnit(props: PropsTestUnit) {
     const onChangeRadio = (e: RadioChangeEvent) => {
         setValue(e.target.value);
 
-        const newAnswerId: number = e.target.value;
+        const newAnswer: number = e.target.value;
 
-        const newState = setNewState(stateTest,id,newAnswerId);
+        const newState = setNewState(stateTest, id, newAnswer);
         dispatch(CHANGE(newState));
     };
 
     const onChangeCheck = (checkedValues: CheckboxValueType[]) => {
-        const newAnswerId: number[] = [];
+        const newAnswer: number[] = [];
         checkedValues.forEach((element, index) => {
-            newAnswerId[index] = Number(element);
+            newAnswer[index] = Number(element);
         });
 
-        const newState = setNewState(stateTest,id,newAnswerId);
+        const newState = setNewState(stateTest, id, newAnswer);
         dispatch(CHANGE(newState));
     };
 
     return (
         <>
-            <Card title={num + ". " + question}>
-                {typeof answerId !== "number" ? (
+            <Card
+                cover={
+                    questionImg ? (
+                        <Image src={questionImg} width="300px" />
+                    ) : (
+                        <></>
+                    )
+                }
+                title={num + ". " + question}
+            >
+                {typeof answer !== "number" ? (
                     <Checkbox.Group onChange={onChangeCheck}>
                         <Space direction="vertical">
                             {variants.map((val, idx) => (

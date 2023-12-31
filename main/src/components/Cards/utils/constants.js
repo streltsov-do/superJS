@@ -4,13 +4,13 @@ const ARR =
     //     title: string;
     //     img: string;
     //     vars: number;
-    //     answer: number;
+    //     explanation: number;
     // }>
     [
-        { theme: "", title: "", img: "", vars: 0, answer: 0 },
-        { theme: "", title: "", img: "", vars: 0, answer: 0 },
-        { theme: "", title: "", img: "", vars: 0, answer: 0 },
-        { theme: "", title: "", img: "", vars: 0, answer: 0 },
+        { theme: "", title: "", img: "", vars: 0, explanation: 0 },
+        { theme: "", title: "", img: "", vars: 0, explanation: 0 },
+        { theme: "", title: "", img: "", vars: 0, explanation: 0 },
+        { theme: "", title: "", img: "", vars: 0, explanation: 0 },
     ];
 
 export { ARR };

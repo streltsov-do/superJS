@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IntStateTest {
     id: number;
-    answerId: number | number[];
+    answer: number | number[];
 }
 
 const initialState: IntStateTest[] = [{
     id: 1,
-    answerId: [2]
+    answer: [2]
 }];
 
 const sliceTest = createSlice({
