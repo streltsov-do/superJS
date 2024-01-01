@@ -1,9 +1,24 @@
-import id_9  from "./img/id_9.jpg";
-import id_10 from "./img/id_10.jpg";
-import id_11 from "./img/id_11.jpg";
-import id_12 from "./img/id_12.jpg";
-import id_13 from "./img/id_13.jpg";
-import id_14 from "./img/id_14.jpg";
+import question_9 from "./img/question_9.jpg";
+import question_10 from "./img/question_10.jpg";
+import question_11 from "./img/question_11.jpg";
+import question_12 from "./img/question_12.jpg";
+import question_13 from "./img/question_13.jpg";
+import question_14 from "./img/question_14.jpg";
+import question_15 from "./img/question_15.jpg";
+import question_16 from "./img/question_16.jpg";
+import question_17 from "./img/question_17.jpg";
+import question_18 from "./img/question_18.jpg";
+import question_19 from "./img/question_19.jpg";
+import question_20 from "./img/question_20.jpg";
+import question_21 from "./img/question_21.jpg";
+import question_22 from "./img/question_22.jpg";
+import question_23 from "./img/question_23.jpg";
+import question_24 from "./img/question_24.jpg";
+import question_25 from "./img/question_25.jpg";
+import question_26 from "./img/question_26.jpg";
+import question_27 from "./img/question_27.jpg";
+
+import answer_15 from "./img/answer_15.jpg";
 
 export interface IntTestUnit {
     id: number;
@@ -14,7 +29,7 @@ export interface IntTestUnit {
     category?: string;
     weight?: number;
     explanation: string;
-    code?: string;
+    code?: string | string[];
     codeImg?: string;
 }
 
@@ -163,7 +178,7 @@ const ARR_CHECK: IntTestUnit[] = [
     {
         id: 9,
         question: "Что будет результатом выполнения данного кода?",
-        questionImg: id_9,
+        questionImg: question_9,
         variants: ["true false", "null null", "42 null", "42 42"],
         answer: 2,
         category: "code",
@@ -181,7 +196,7 @@ const ARR_CHECK: IntTestUnit[] = [
     {
         id: 10,
         question: "Что будет результатом выполнения данного кода?",
-        questionImg: id_10,
+        questionImg: question_10,
         variants: ["logOr logAnd", "logOr", "logAnd", "Ошибка"],
         answer: 1,
         category: "code",
@@ -211,7 +226,7 @@ const ARR_CHECK: IntTestUnit[] = [
     {
         id: 11,
         question: "Что будет результатом выполнения данного кода?",
-        questionImg: id_11,
+        questionImg: question_11,
         variants: ["1", "2", "NaN", "undefined", "Ошибка"],
         answer: 1,
         category: "code",
@@ -228,7 +243,7 @@ const ARR_CHECK: IntTestUnit[] = [
     {
         id: 12,
         question: "Что будет результатом выполнения данного кода?",
-        questionImg: id_12,
+        questionImg: question_12,
         variants: [
             `Вывод "Hello"`,
             "Ошибка - нельзя вызвать функцию до её объявления",
@@ -251,7 +266,7 @@ const ARR_CHECK: IntTestUnit[] = [
     {
         id: 13,
         question: "Что будет результатом выполнения данного кода?",
-        questionImg: id_13,
+        questionImg: question_13,
         variants: ["undefined", "10", "9", "Цикл не завершится", "Ошибка"],
         answer: 0,
         category: "code",
@@ -270,7 +285,7 @@ const ARR_CHECK: IntTestUnit[] = [
     {
         id: 14,
         question: "Что будет результатом выполнения данного кода?",
-        questionImg: id_14,
+        questionImg: question_14,
         variants: ["false, false ", "false, true", "true, false", "true, true"],
         answer: 0,
         category: "code",
@@ -287,17 +302,338 @@ const ARR_CHECK: IntTestUnit[] = [
                 console.log(arr1 === arr2);
             `,
     },
+    {
+        id: 15,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_15,
+        variants: ["Ivan", "undefined", "Ошибка"],
+        answer: 2,
+        category: "code",
+        weight: 2,
+        explanation: `
+            This ссылается на глобальный объект, в строгом режиме будет ошибка.
+        `,
+        code: `
+            'use strict'
+
+            let user = {
+                name: 'Ivan',
+                getName() {
+                    return this.name;
+                }
+            }
+            
+            const getUserName = user.getName;
+            console.log('user name is ' + getUserName());
+        `,
+    },
+    {
+        id: 16,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_16,
+        variants: ["Ошибка", "12", "undefined"],
+        answer: 0,
+        category: "code",
+        weight: 2,
+        explanation: `
+            This ссылается на глобальный объект, в строгом режиме будет ошибка.
+        `,
+        code: `
+        `,
+    },
+    {
+        id: 17,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_17,
+        variants: ["5", "6", "Ошибка"],
+        answer: 0,
+        category: "code",
+        weight: 1,
+        explanation: `
+            x++ - постфиксная запись, прибавление единицы осуществляется после вызова.
+        `,
+        code: `
+                let x = 5;
+                console.log(x++);
+        `,
+    },
+    {
+        id: 18,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_18,
+        variants: ["20", "undefined", "Ошибка"],
+        answer: 1,
+        category: "code",
+        weight: 1,
+        explanation: `
+            Несмотря на значения по умолчанию, мы инициализируем массив, который передаётся в фунцию - в её аргументе нету второго элемента массива.
+        `,
+        code: `
+            function getSecondValue([first, second] = [10, 20]) {
+                return second;
+            }
+            
+            console.log(getSecondValue([5]));
+        `,
+    },
+    {
+        id: 19,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_19,
+        variants: [
+            "Hello, Vasya. You're 10",
+            "Hello, Vasya. You're undefined",
+            "Hello, undefined. You're undefined",
+            "Ошибка",
+        ],
+        answer: 2,
+        category: "code",
+        weight: 1,
+        explanation: `
+            'Vasya' и 10 передаются как массив аргументов в функцию
+        `,
+        code: [
+            "function greetings({name, age}) {",
+            "    console.log(`Hello, ${name}. You're ${age}`);",
+            "}",
+            "/n",
+            "greetings('Vasya', 10);",
+        ],
+    },
+    {
+        id: 20,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_20,
+        variants: ["Some message4", "Some message", "Ошибка", "true"],
+        answer: 2,
+        category: "code",
+        weight: 2,
+        explanation: `
+            'apply' работает с массивом аргументов.
+            При использовании 'call' результат будет "Some message4"
+        `,
+        code: `
+            const details = {
+                message: 'Some message'
+            }
+            
+            function getMessage(count) {
+                return this.message + count;
+            }
+            
+            console.log(getMessage.apply(details, 4));
+        `,
+    },
+    {
+        id: 21,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_21,
+        variants: ["5", "6", "3"],
+        answer: 0,
+        category: "code",
+        weight: 1,
+        explanation: `
+            При присвоении несуществующим элементам массива значений, появятся элементы с этими индексами,
+            а неинициализированные элементы будут равны 'undefined'
+        `,
+        code: `
+            const arr = [1];
+            arr[2] = 2;
+            arr[5] = 5;
+        `,
+    },
+    {
+        id: 22,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_22,
+        variants: [
+            "[1, 2, 3]",
+            "[1, 2]",
+            "[1, 2, 3, 4, 5]",
+            "Так делать нельзя",
+        ],
+        answer: 1,
+        category: "code",
+        weight: 1,
+        explanation: `
+            Можно изменять длинну массива - тогда количество элементов массива увеличится/сократится до указанного.
+        `,
+        code: `
+            const arr = [1, 2, 3, 4, 5];
+            arr.length = 2;
+        `,
+    },
+    {
+        id: 23,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_23,
+        variants: ["5 5", "5 undefined", "undefined 5", "undefined undefined"],
+        answer: 1,
+        category: "code",
+        weight: 2,
+        explanation: `
+            
+        `,
+        code: `
+            const arr = [1, 2, 3];
+            const myString = 'my super string';
+
+            arr.something = 5;
+            myString.something = 5;
+
+            console.log(arr.something);
+            console.log(myString.something);
+        `,
+    },
+    {
+        id: 24,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_24,
+        variants: ["Maria", "Kolya", "undefined", "Ошибка"],
+        answer: 0,
+        category: "code",
+        weight: 2,
+        explanation: `
+            
+        `,
+        code: `
+            let name = 'Maria';
+
+            const sayName = () => {
+                console.log(name);
+            }
+
+            setTimeout(() => {
+                let name = 'Kolya';
+                sayName();
+            }, 1000)
+        `,
+    },
+    {
+        id: 25,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_25,
+        variants: [
+            "https://base-url/image/path",
+            "https://image-url/image/path",
+            "https://image-url-number-2/image/path",
+        ],
+        answer: 1,
+        category: "code",
+        weight: 2,
+        explanation: `
+            
+        `,
+        code: [
+            "const baseURL = 'https://base-url';",
+            "\n",
+            "const buildImagePath = () => {",
+            "    const baseURL = 'https://image-url';",
+            "\n",
+            "    return (url) => {",
+            "        return `${baseURL}${url}`;",
+            "    }",
+            "}",
+            "\n",
+            "const getImage = (url) => {",
+            "    const baseURL = 'https://image-url-number-2';",
+            "    return buildImagePath()(url);",
+            "}",
+            "\n",
+            "console.log(getImage('/image/path'));",
+        ],
+    },
+    {
+        id: 26,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_26,
+        variants: ["0", "6", "3", "undefined","Ошибка"],
+        answer: 0,
+        category: "code",
+        weight: 3,
+        explanation: `
+            Стрелочная функция не имеет своего this - будет использоваться внешний.
+            При использовании обычной функции ("function getSum() {}") - будет ошибка.
+        `,
+        code: `
+            const data = {
+                result: 0,
+                numbers: [1, 2, 3],
+                computeResult() {
+                    const getSum = () => {
+                        return this.numbers.reduce((total, value) => total + value, 0)
+                    }
+                    
+                    this.result = getSum();
+                }
+            }
+
+            data.computeResults();
+            console.log(data.result);
+        `,
+    },
+    {
+        id: 27,
+        question: "Что будет результатом выполнения данного кода?",
+        questionImg: question_27,
+        variants: [
+            "5, 1, 3, 4, 2", 
+            "1, 2, 3, 4, 5", 
+            "5, 3, 4, 1, 2", 
+            "5, 3, 1, 4, 2",
+        ],
+        answer: 3,
+        category: "code",
+        weight: 3,
+        explanation: `
+            1) Выполняется "console.log('5')" => 5
+            2) Выполняется "firstFuncton => myPromise().resolve()", запускается ожидание console.log("1")
+            3) Выполняется "secondFunction => await" => 3
+            4) Выполняется "firstFunction => console.log('1')" => 1
+            5) Выполняется "secondFunction => console.log('4')" => 4
+            6) Выполняется "firstFunction => setTimeout()" => 2
+            5 3 1 4 2
+        `,
+        code: `
+            const myPromise = () => Promise.resolve().then(() => console.log('1'));
+
+            const firstFunction = () => {
+                setTimeout(() => console.log('2'), 0);
+                myPromise();
+            }
+
+            async function secondFunction() {
+                await new Promise((resolve) => {
+                    console.log('3');
+                    resolve();
+                })
+
+                console.log('4');
+            }
+
+            console.log('5');
+            firstFunction();
+            secondFunction();
+        `,
+    },
 ];
 
 // {
-//     id: 13,
-//     question: "????????????????????????? ?",
-//     questionImg: "",
-//     variants: ["1111111", "2222222222", "333333333", "44444444444", "5555555555555555"],
+//     id: 23,
+//     question: "Что будет результатом выполнения данного кода?",
+//     questionImg: question_23,
+//     variants: [
+//         "00000",
+//         "11111",
+//         "22222",
+//         "33333",
+//         "44444",
+//     ],
 //     answer: 0,
-//     category: "category",
-//     weight: 1,
+//     category: "code",
+//     weight: 2,
 //     explanation: `
+
 //     `,
 //     code: `
 //     `,

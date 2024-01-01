@@ -51,13 +51,13 @@ function TestUnit(props: PropsTestUnit) {
     const [value, setValue] = useState(-1);
     const [loading, setLoading] = useState(false);
     const {
-        num = -1,
-        id = -1,
-        question = "Question, mark?",
+        num,
+        id,
+        question,
         questionImg,
-        variants = ["a", "b", "c"],
-        answer = 2,
-        explanation = "",
+        variants,
+        answer,
+        explanation,
     } = props;
 
     const stateTest = useAppSelector((state: RootState) => state.test);

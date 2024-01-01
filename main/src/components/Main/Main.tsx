@@ -42,6 +42,31 @@ const getResults = (arrSource: IntTestUnit[], arrAnswers: IntStateTest[]) => {
     return results;
 };
 
+const randomizeOrder = (data: IntTestUnit[]) => {
+    const outArr : IntTestUnit[] = [];
+    let varArr = data;
+
+    for (let i=0; i<data.length; i++) {
+        const num = Math.floor((varArr.length)*Math.random());
+        outArr[i]=varArr[num];
+        const data1=varArr.slice(0,num);
+        const data2=varArr.slice(num+1,varArr.length);
+
+        varArr=data1.concat(data2)
+    }
+
+    for (let i=0; i<outArr.length; i++) {
+        for (let j=1; j<outArr.length; j++){
+            if (outArr[i].id===outArr[j].id && i!==j) {
+                console.log("ERROR!",i,j);
+                return data;
+            }
+        }
+    }
+
+    return outArr;
+}
+
 const Main = () => {
     const [complete, setComplete] = useState(false);
     const [results, setResults] = useState({
@@ -69,6 +94,8 @@ const Main = () => {
         setComplete(!complete);
     };
 
+    const ARR_CHECK_RND : IntTestUnit[] = randomizeOrder(ARR_CHECK);
+
     return (
         <Container>
             <Title level={2}>Tests</Title>
@@ -76,11 +103,14 @@ const Main = () => {
             {/* <hr></hr> */}
             {/* <Check></Check> */}
             <Space direction="vertical" size="middle">
+                {/* <Button size="large" onClick={() => randomizeOrder(ARR_CHECK)}>
+                    TST
+                </Button> */}
                 {complete ? (
                     <TestResult result={results} />
                 ) : (
                     <Space direction="vertical" size="middle">
-                        {ARR_CHECK.map((elem, index) => (
+                        {ARR_CHECK_RND.map((elem, index) => (
                             <TestUnit
                                 key={index}
                                 num={index + 1}

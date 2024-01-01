@@ -5,10 +5,7 @@ export interface IntStateTest {
     answer: number | number[];
 }
 
-const initialState: IntStateTest[] = [{
-    id: 1,
-    answer: [2]
-}];
+const initialState: IntStateTest[] = [];
 
 const sliceTest = createSlice({
     name: "test",
