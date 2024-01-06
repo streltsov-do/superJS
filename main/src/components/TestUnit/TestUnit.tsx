@@ -1,27 +1,21 @@
 import React, { useState } from "react";
 
-import {
-    Card,
-    Radio,
-    RadioChangeEvent,
-    Skeleton,
-    Space,
-    Switch,
-    Checkbox,
-    Image,
-} from "antd";
+import { Card, Radio, RadioChangeEvent, Space, Checkbox, Image } from "antd";
 
 import type { CheckboxValueType } from "antd/es/checkbox/Group";
 
-import { ARR_CHECK, compareNumbers, IntTestUnit } from "./constants";
+import { ANSWER_BAD, ANSWER_GOOD, ANSWER_NOT, compareNumbers, IntTestUnit } from "./constants";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { CHANGE, IntStateTest } from "../../redux/sliceTest";
 // import { changeEx } from "../../redux/sliceExample";
 import { RootState } from "../../redux/reducers";
-import { goodLog } from "../../utils/functions";
+import { getRightAnswer } from "../../pages/PageTests/functions";
 
 interface PropsTestUnit extends IntTestUnit {
     num: number;
+    complete?: boolean;
+    userAnswer: number | number[];
+    bgColor: string;
 }
 
 const setNewState = (
@@ -49,7 +43,6 @@ const setNewState = (
 
 function TestUnit(props: PropsTestUnit) {
     const [value, setValue] = useState(-1);
-    const [loading, setLoading] = useState(false);
     const {
         num,
         id,
@@ -58,6 +51,8 @@ function TestUnit(props: PropsTestUnit) {
         variants,
         answer,
         explanation,
+        complete,
+        bgColor
     } = props;
 
     const stateTest = useAppSelector((state: RootState) => state.test);
@@ -84,34 +79,43 @@ function TestUnit(props: PropsTestUnit) {
     };
 
     return (
-        <>
-            <Card
-                cover={questionImg && <Image src={questionImg} width="300px" alt={`img_${id}`}/>}
-                title={num + ". " + question}
-            >
-                {typeof answer !== "number" ? (
-                    <Checkbox.Group onChange={onChangeCheck}>
-                        <Space direction="vertical">
-                            {variants.map((val, idx) => (
-                                <Checkbox key={idx} value={idx}>
-                                    {val}
-                                </Checkbox>
-                            ))}
-                        </Space>
-                    </Checkbox.Group>
-                ) : (
-                    <Radio.Group onChange={onChangeRadio} value={value}>
-                        <Space direction="vertical">
-                            {variants.map((val, idx) => (
-                                <Radio key={idx} value={idx}>
-                                    {val}
-                                </Radio>
-                            ))}
-                        </Space>
-                    </Radio.Group>
-                )}
-            </Card>
-        </>
+        <Card
+            cover={
+                questionImg && (
+                    <Image src={questionImg} width="300px" alt={`img_${id}`} />
+                )
+            }
+            title={num + ". " + question}
+            headStyle={{
+                backgroundColor: bgColor,
+            }}
+        >
+            {typeof answer !== "number" ? (
+                <Checkbox.Group onChange={onChangeCheck} disabled={complete}>
+                    <Space direction="vertical">
+                        {variants.map((val, idx) => (
+                            <Checkbox key={idx} value={idx}>
+                                {val}
+                            </Checkbox>
+                        ))}
+                    </Space>
+                </Checkbox.Group>
+            ) : (
+                <Radio.Group
+                    onChange={onChangeRadio}
+                    value={value}
+                    disabled={complete}
+                >
+                    <Space direction="vertical">
+                        {variants.map((val, idx) => (
+                            <Radio key={idx} value={idx}>
+                                {val}
+                            </Radio>
+                        ))}
+                    </Space>
+                </Radio.Group>
+            )}
+        </Card>
     );
 }
 

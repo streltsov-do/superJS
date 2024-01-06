@@ -13,11 +13,11 @@ const { Title } = Typography;
 const items: MenuProps["items"] = [
     {
         label: (
-            <a href="/">
+            <Link to="/">
                 <Title level={1} type="success">
                     SuperJS
                 </Title>
-            </a>
+            </Link>
         ),
         key: "SuperJS",
     },

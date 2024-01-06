@@ -26,7 +26,8 @@ export interface IntTestUnit {
     questionImg?: string;
     variants: string[];
     answer: number | number[];
-    category?: string;
+    type: string,
+    category: string;
     weight?: number;
     explanation: string;
     code?: string | string[];
@@ -42,6 +43,10 @@ export function compareNumbers(a: number, b: number) {
     return a - b;
 }
 
+export const ANSWER_GOOD = "lightgreen";
+export const ANSWER_BAD = "pink";
+export const ANSWER_NOT = "#FFEC59";
+
 const ARR_CHECK: IntTestUnit[] = [
     {
         id: 0,
@@ -52,6 +57,7 @@ const ARR_CHECK: IntTestUnit[] = [
             "Механизм для работы с XML-документами",
         ],
         answer: 1,
+        type: "theory",
         category: "",
         weight: 1,
         explanation: `
@@ -64,6 +70,7 @@ const ARR_CHECK: IntTestUnit[] = [
             "Какие виды областей видимости есть в JS (ES6+)? (Несколько вариантов ответов)",
         variants: ["Модульная", "Глобальная", "Функциональная", "Блочная"],
         answer: [0, 1, 2, 3],
+        type: "theory",
         category: "",
         weight: 1,
         explanation: `
@@ -75,6 +82,7 @@ const ARR_CHECK: IntTestUnit[] = [
             "Какие значения в JS являются ложными (falsy)? (Несколько вариантов ответов)",
         variants: ['""', "[]", "0", "null"],
         answer: [0, 2, 3],
+        type: "theory",
         category: "",
         weight: 1,
         explanation: `
@@ -90,6 +98,7 @@ const ARR_CHECK: IntTestUnit[] = [
             "Такого оператора не существует",
         ],
         answer: 2,
+        type: "theory",
         category: "",
         weight: 1,
         explanation: `
@@ -106,6 +115,7 @@ const ARR_CHECK: IntTestUnit[] = [
             "Нельзя использовать как асинхронную функцию",
         ],
         answer: [0, 2],
+        type: "theory",
         category: "",
         weight: 2,
         explanation: `
@@ -126,6 +136,7 @@ const ARR_CHECK: IntTestUnit[] = [
             "Всё из вышеперечисленных",
         ],
         answer: 2,
+        type: "theory",
         category: "",
         weight: 2,
         explanation: `
@@ -141,6 +152,7 @@ const ARR_CHECK: IntTestUnit[] = [
             "Любое количество",
         ],
         answer: 3,
+        type: "theory",
         category: "",
         weight: 1,
         explanation: `
@@ -155,6 +167,7 @@ const ARR_CHECK: IntTestUnit[] = [
             "Механизм изменения контекста выполнения функции",
         ],
         answer: 1,
+        type: "theory",
         category: "",
         weight: 1,
         explanation: `
@@ -170,6 +183,7 @@ const ARR_CHECK: IntTestUnit[] = [
             "Выход из цикла",
         ],
         answer: 1,
+        type: "theory",
         category: "",
         weight: 1,
         explanation: `
@@ -181,7 +195,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_9,
         variants: ["true false", "null null", "42 null", "42 42"],
         answer: 2,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 1,
         explanation: `
         `,
@@ -199,7 +214,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_10,
         variants: ["logOr logAnd", "logOr", "logAnd", "Ошибка"],
         answer: 1,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 1,
         explanation: `
         `,
@@ -229,7 +245,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_11,
         variants: ["1", "2", "NaN", "undefined", "Ошибка"],
         answer: 1,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 1,
         explanation: `
         `,
@@ -249,7 +266,8 @@ const ARR_CHECK: IntTestUnit[] = [
             "Ошибка - нельзя вызвать функцию до её объявления",
         ],
         answer: 0,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 1,
         explanation: `
             Поднятие (Hoisting) переменных/функций: объявление переменной или функции физически перемещается в начало вашего кода. 
@@ -269,7 +287,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_13,
         variants: ["undefined", "10", "9", "Цикл не завершится", "Ошибка"],
         answer: 0,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 1,
         explanation: `
                 i - блочная переменная (объявлена с помощью "let"). Вне цикла не существует
@@ -288,7 +307,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_14,
         variants: ["false, false ", "false, true", "true, false", "true, true"],
         answer: 0,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 1,
         explanation: `
                 Сравниваются ссылки на массив - не могут быть одинаковыми при объявлении 
@@ -308,7 +328,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_15,
         variants: ["Ivan", "undefined", "Ошибка"],
         answer: 2,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 2,
         explanation: `
             This ссылается на глобальный объект, в строгом режиме будет ошибка.
@@ -333,7 +354,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_16,
         variants: ["Ошибка", "12", "undefined"],
         answer: 0,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 2,
         explanation: `
             This ссылается на глобальный объект, в строгом режиме будет ошибка.
@@ -347,7 +369,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_17,
         variants: ["5", "6", "Ошибка"],
         answer: 0,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 1,
         explanation: `
             x++ - постфиксная запись, прибавление единицы осуществляется после вызова.
@@ -363,7 +386,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_18,
         variants: ["20", "undefined", "Ошибка"],
         answer: 1,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 1,
         explanation: `
             Несмотря на значения по умолчанию, мы инициализируем массив, который передаётся в фунцию - в её аргументе нету второго элемента массива.
@@ -387,7 +411,8 @@ const ARR_CHECK: IntTestUnit[] = [
             "Ошибка",
         ],
         answer: 2,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 1,
         explanation: `
             'Vasya' и 10 передаются как массив аргументов в функцию
@@ -406,7 +431,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_20,
         variants: ["Some message4", "Some message", "Ошибка", "true"],
         answer: 2,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 2,
         explanation: `
             'apply' работает с массивом аргументов.
@@ -430,7 +456,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_21,
         variants: ["5", "6", "3"],
         answer: 0,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 1,
         explanation: `
             При присвоении несуществующим элементам массива значений, появятся элементы с этими индексами,
@@ -453,7 +480,8 @@ const ARR_CHECK: IntTestUnit[] = [
             "Так делать нельзя",
         ],
         answer: 1,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 1,
         explanation: `
             Можно изменять длинну массива - тогда количество элементов массива увеличится/сократится до указанного.
@@ -469,7 +497,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_23,
         variants: ["5 5", "5 undefined", "undefined 5", "undefined undefined"],
         answer: 1,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 2,
         explanation: `
             
@@ -491,7 +520,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_24,
         variants: ["Maria", "Kolya", "undefined", "Ошибка"],
         answer: 0,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 2,
         explanation: `
             
@@ -519,7 +549,8 @@ const ARR_CHECK: IntTestUnit[] = [
             "https://image-url-number-2/image/path",
         ],
         answer: 1,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 2,
         explanation: `
             
@@ -549,7 +580,8 @@ const ARR_CHECK: IntTestUnit[] = [
         questionImg: question_26,
         variants: ["0", "6", "3", "undefined","Ошибка"],
         answer: 0,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 3,
         explanation: `
             Стрелочная функция не имеет своего this - будет использоваться внешний.
@@ -583,7 +615,8 @@ const ARR_CHECK: IntTestUnit[] = [
             "5, 3, 1, 4, 2",
         ],
         answer: 3,
-        category: "code",
+        type: "code",
+        category: "",
         weight: 3,
         explanation: `
             1) Выполняется "console.log('5')" => 5
@@ -630,7 +663,8 @@ const ARR_CHECK: IntTestUnit[] = [
 //         "44444",
 //     ],
 //     answer: 0,
-//     category: "code",
+//     type: "code",
+//     category: "",
 //     weight: 2,
 //     explanation: `
 
