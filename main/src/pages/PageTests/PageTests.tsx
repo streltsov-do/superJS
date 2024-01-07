@@ -128,10 +128,13 @@ const PageTests = () => {
                             <Radio key="hide" value={0}>
                                 Скрыть
                             </Radio>
-                            <Radio key="err" value={1}>
+                            <Radio key="bad" value={1}>
                                 Показать ошибки
                             </Radio>
-                            <Radio key="all" value={2}>
+                            <Radio key="good" value={2}>
+                                Показать правильные ответы
+                            </Radio>
+                            <Radio key="all" value={3}>
                                 Показать всё
                             </Radio>
                         </Radio.Group>
@@ -155,17 +158,20 @@ const PageTests = () => {
                             return (
                                 (!complete ||
                                     (showAnswers === 1 && myAnswer !== 1) ||
-                                    showAnswers === 2) && (
+                                    (showAnswers === 2 && myAnswer === 1) ||
+                                    showAnswers === 3) && (
                                     <TestUnit
                                         key={index}
                                         num={index + 1}
                                         id={elem.id}
+                                        category={elem.category}
+                                        type={elem.type}
+                                        theme={elem.theme}
+                                        weight={elem.weight}
                                         question={elem.question}
                                         questionImg={elem.questionImg}
                                         variants={elem.variants}
                                         answer={elem.answer}
-                                        type={elem.type}
-                                        category={elem.category}
                                         explanation={elem.explanation}
                                         complete={complete}
                                         userAnswer={testState[index].answer}

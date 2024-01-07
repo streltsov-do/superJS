@@ -4,16 +4,23 @@ import { Card, Radio, RadioChangeEvent, Space, Checkbox, Image } from "antd";
 
 import type { CheckboxValueType } from "antd/es/checkbox/Group";
 
-import { ANSWER_BAD, ANSWER_GOOD, ANSWER_NOT, compareNumbers, IntTestUnit } from "./constants";
+import {
+    ANSWER_BAD,
+    ANSWER_GOOD,
+    ANSWER_NOT,
+    compareNumbers,
+    IntTestUnit,
+} from "./constants";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { CHANGE, IntStateTest } from "../../redux/sliceTest";
 // import { changeEx } from "../../redux/sliceExample";
 import { RootState } from "../../redux/reducers";
-import { getRightAnswer } from "../../pages/PageTests/functions";
+
+const { Meta } = Card;
 
 interface PropsTestUnit extends IntTestUnit {
     num: number;
-    complete?: boolean;
+    complete: boolean;
     userAnswer: number | number[];
     bgColor: string;
 }
@@ -41,19 +48,59 @@ const setNewState = (
     return newState;
 };
 
+const gridAnswer: React.CSSProperties = {
+    width: "50%",
+};
+
+const getColor = (
+    complete: boolean,
+    idx: number,
+    answerSrc: number | number[],
+    answerUser: number | number[],
+) => {
+    const answerSrcArr = answerSrc as number[];
+    const answerUserArr = answerUser as number[];
+    let borderStyle = {
+        color: "",
+        border: "none",
+    };
+    if (complete) {
+        for (let i = 0; i < answerSrcArr.length; i++) {
+            if (answerUserArr[i] === idx) {
+                borderStyle.color = "pink";
+                borderStyle.border = "solid";
+            }
+            if (answerSrcArr[i] === idx) {
+                borderStyle.color = "lightgreen";
+                borderStyle.border = "solid";
+            }
+        }
+    }
+    return borderStyle;
+};
+
 function TestUnit(props: PropsTestUnit) {
     const [value, setValue] = useState(-1);
     const {
         num,
         id,
+        category,
+        type,
+        theme,
+        weight,
         question,
         questionImg,
         variants,
         answer,
         explanation,
         complete,
-        bgColor
+        bgColor,
+        userAnswer,
     } = props;
+
+    const gridMain: React.CSSProperties = {
+        width: complete ? "50%" : "100%",
+    };
 
     const stateTest = useAppSelector((state: RootState) => state.test);
 
@@ -78,42 +125,93 @@ function TestUnit(props: PropsTestUnit) {
         dispatch(CHANGE(newState));
     };
 
+    const userAnswerConverted =
+        userAnswer === -1 ? [] : (userAnswer as number[]);
+
     return (
         <Card
             cover={
                 questionImg && (
-                    <Image src={questionImg} width="300px" alt={`img_${id}`} />
+                    <Image src={questionImg} width="500px" alt={`img_${id}`} />
                 )
             }
-            title={num + ". " + question}
+            // title={num + ". " + question}
+            title={<pre className="title">{num}. {question}</pre>}
             headStyle={{
                 backgroundColor: bgColor,
+                whiteSpace: "pre-wrap",
+                paddingTop: "10px",
+                paddingBottom: "10px",
             }}
         >
-            {typeof answer !== "number" ? (
-                <Checkbox.Group onChange={onChangeCheck} disabled={complete}>
-                    <Space direction="vertical">
-                        {variants.map((val, idx) => (
-                            <Checkbox key={idx} value={idx}>
-                                {val}
-                            </Checkbox>
-                        ))}
-                    </Space>
-                </Checkbox.Group>
-            ) : (
-                <Radio.Group
-                    onChange={onChangeRadio}
-                    value={value}
-                    disabled={complete}
-                >
-                    <Space direction="vertical">
-                        {variants.map((val, idx) => (
-                            <Radio key={idx} value={idx}>
-                                {val}
-                            </Radio>
-                        ))}
-                    </Space>
-                </Radio.Group>
+            <Card.Grid style={gridMain} hoverable={false}>
+                {typeof answer !== "number" ? (
+                    <Checkbox.Group
+                        onChange={onChangeCheck}
+                        disabled={complete}
+                        defaultValue={userAnswerConverted}
+                    >
+                        {/* <Meta
+                            title="Europe Street beat"
+                            description="www.instagram.com"
+                        /> */}
+                        <Space direction="vertical">
+                            {variants.map((val, idx) => {
+                                const borderStyle = getColor(
+                                    complete,
+                                    idx,
+                                    answer,
+                                    userAnswer,
+                                );
+                                return (
+                                    <Checkbox
+                                        className="unselectable"
+                                        key={idx}
+                                        value={idx}
+                                        style={{
+                                            borderColor: borderStyle.color,
+                                            borderStyle: borderStyle.border,
+                                            borderWidth: 2,
+                                            borderRadius: 5,
+                                        }}
+                                    >
+                                        {val}
+                                    </Checkbox>
+                                );
+                            })}
+                        </Space>
+                    </Checkbox.Group>
+                ) : (
+                    <Radio.Group
+                        onChange={onChangeRadio}
+                        defaultValue={complete ? userAnswer : value}
+                        disabled={complete}
+                    >
+                        <Space direction="vertical">
+                            {variants.map((val, idx) => (
+                                <Radio
+                                    className="unselectable"
+                                    key={idx}
+                                    value={idx}
+                                    style={{
+                                        color: complete
+                                            ? idx === answer
+                                                ? "green"
+                                                : idx === userAnswer
+                                                  ? "red"
+                                                  : ""
+                                            : "",
+                                    }}
+                                >
+                                    {val}
+                                </Radio>
+                            ))}
+                        </Space>
+                    </Radio.Group>
+                )}
+            </Card.Grid>
+            {complete && (
+                <Card.Grid style={gridAnswer} hoverable={false}></Card.Grid>
             )}
         </Card>
     );

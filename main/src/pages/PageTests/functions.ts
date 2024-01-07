@@ -17,7 +17,7 @@ export const getRightAnswer = (
         return -1;
     }
     if (Array.isArray(answerUser) && Array.isArray(answerSrc)) {
-        for (let j = 0; j < answerUser.length; j++) {
+        for (let j = 0; j < answerSrc.length; j++) {
             if (answerUser[j] !== answerSrc[j]) {
                 good = 0;
                 break;
@@ -53,11 +53,11 @@ export const getResults = (
         rightAnswers: 0,
         totalQuestions: arrAnswers.length,
     };
-    for (let i = 0; i < arrAnswers.length; i++) {
+    for (let i = 0; i < arrSource.length; i++) {
         const answerUser = arrAnswers[i].answer;
         const answerSrc = arrSource[arrAnswers[i].id].answer;
 
-        const good = getRightAnswer(answerUser, answerSrc);
+        const good = getRightAnswer(answerSrc, answerUser);
         results.rightAnswers = good
             ? ++results.rightAnswers
             : results.rightAnswers;
