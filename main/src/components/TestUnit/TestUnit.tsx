@@ -67,11 +67,11 @@ const getColor = (
     if (complete) {
         for (let i = 0; i < answerSrcArr.length; i++) {
             if (answerUserArr[i] === idx) {
-                borderStyle.color = "pink";
+                borderStyle.color = ANSWER_BAD;
                 borderStyle.border = "solid";
             }
             if (answerSrcArr[i] === idx) {
-                borderStyle.color = "lightgreen";
+                borderStyle.color = ANSWER_GOOD;
                 borderStyle.border = "solid";
             }
         }

@@ -22,8 +22,15 @@ import question_31 from "./img/question_31.jpg";
 import question_34 from "./img/question_34.jpg";
 import question_36 from "./img/question_36.jpg";
 import question_38 from "./img/question_38.jpg";
+import question_40 from "./img/question_40.jpg";
+import question_41 from "./img/question_41.jpg";
+import question_42 from "./img/question_42.jpg";
+import question_47 from "./img/question_47.jpg";
 
 import answer_15 from "./img/answer_15.jpg";
+import answer_40 from "./img/answer_40.jpg";
+import answer_41 from "./img/answer_41.jpg";
+import answer_43 from "./img/answer_43.jpg";
 
 type QuestionCategory = "html" | "css" | "js" | "ts";
 const CAT_HTML: QuestionCategory = "html";
@@ -46,6 +53,7 @@ export interface IntTestUnit {
     questionImg?: string;
     variants: string[];
     answer: number | number[];
+    answerImg?: string;
     explanation: string;
     code?: string | string[];
     codeImg?: string;
@@ -54,6 +62,7 @@ export interface IntTestUnit {
 export interface IntResults {
     rightAnswers: number;
     totalQuestions: number;
+    resultsArray: number[];
 }
 
 export function compareNumbers(a: number, b: number) {
@@ -412,6 +421,16 @@ const ARR_CHECK: IntTestUnit[] = [
             This ссылается на глобальный объект, в строгом режиме будет ошибка.
         `,
         code: `
+            'use strict'
+
+            let user = {
+                age: '12',
+                getAge() {
+                    return this.age;
+                }
+            }
+
+            console.log((user.notGetAge = userGetAge)());
         `,
     },
     {
@@ -946,7 +965,7 @@ const ARR_CHECK: IntTestUnit[] = [
             /* 3 */ `Использую только объекты`,
             /* 4 */ "Использую вложенные массивы",
         ],
-        answer: -2,
+        answer: -1,
         weight: 1,
         explanation: `
             
@@ -1062,8 +1081,248 @@ const ARR_CHECK: IntTestUnit[] = [
         ],
         answer: 2,
         weight: 1,
-        explanation: 
-            `Объект Promise используется для отложенных и асинхронных вычислений.`,
+        explanation: `Объект Promise используется для отложенных и асинхронных вычислений.`,
+    },
+    {
+        id: 40,
+        source: "hh",
+        category: CAT_HTML,
+        type: TYPE_CODE,
+        theme: "",
+        question: `Какой код приведет к некорректному отображению цитирования?`,
+        questionImg: question_40,
+        variants: [
+            /* 0 */ `<blockquote><p>"Я знаю, что ничего не знаю"</p><cite> Сократ </cite></blockquote>`,
+            /* 1 */ `<blockquote><h3>Сократ</h3><p>"Я знаю, что ничего не знаю"</p></blockquote>`,
+            /* 2 */ `<p><q>Я знаю, что ничего не знаю</q>, говорил Сократ</p>`,
+            /* 3 */ `<figure><blockquote>Я знаю, что ничего не знаю</blockquote><figcaption>говорил Сократ</figcaption></figure>`,
+            /* 4 */ `<q><blockquote>Я знаю, что ничего не знаю</blockquote><cite>говорил Сократ</cite></q>`,
+        ],
+        answer: 4,
+        answerImg: answer_40,
+        weight: 1,
+        explanation: `Тэг <q> - однострочный комментарий, <blockquote> - многострочный`,
+        code: `
+            <blockquote>
+                <p>"Я знаю, что ничего не знаю"</p>
+                <cite> Сократ </cite>
+            </blockquote>
+
+            <blockquote>
+                <h3>Сократ</h3>
+                <p>"Я знаю, что ничего не знаю"</p>
+            </blockquote>
+
+            <p><q>Я знаю, что ничего не знаю</q>, говорил Сократ</p>
+
+            <figure>
+                <blockquote>Я знаю, что ничего не знаю</blockquote>
+                <figcaption>говорил Сократ</figcaption>
+            </figure>
+
+            <q>
+                <blockquote>Я знаю, что ничего не знаю</blockquote>
+                <cite>говорил Сократ</cite>
+            </q>
+        `,
+    },
+    {
+        id: 41,
+        source: "hh",
+        category: CAT_HTML,
+        type: TYPE_CODE,
+        theme: "",
+        question: `Какая ошибка присутствует в следующем коде?`,
+        questionImg: question_41,
+        variants: [
+            /* 0 */ `У тегов <tr> отсутствует обязательный атрибут char`,
+            /* 1 */ `Элемент <td colspan="2" class="error">Ячейка 3</td> лишний`,
+            /* 2 */ `У тега <table> отсутствует обязательный атрибут border`,
+            /* 3 */ `Отсутствует обязательная заголовочная ячейка таблицы <th>`,
+            /* 4 */ `Элемент <td>Ячейка 4</td> лишний"`,
+        ],
+        answer: 4,
+        answerImg: answer_41,
+        weight: 1,
+        explanation: `Элемент 'Ячейка 4' будет выступать за пределы таблицы изза параметра colspan="2" в Ячейке 3`,
+        code: `
+            <table>
+                <tr>
+                    <td>Ячейка 1</td>
+                    <td>Ячейка 2</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="error">Ячейка 3</td>
+                    <td>Ячейка 4</td>
+                </tr>
+            </table>
+        `,
+    },
+    {
+        id: 42,
+        source: "hh",
+        category: CAT_HTML,
+        type: TYPE_CODE,
+        theme: "",
+        question: `Что создаёт следующий код?`,
+        questionImg: question_42,
+        variants: [
+            /* 0 */ `Поле ввода, где можно выбрать несколько из трех элементов списка, при этом "Яблоки" выбрать нельзя, а "Молоко" выбрано по умолчанию`,
+            /* 1 */ `Текстовое поле ввода, где значения "Яблоки" и "Молоко" вбиты по умолчанию, при этом в поле "Яблоки" нельзя изменить текст`,
+            /* 2 */ `Маркированный список из трех пунктов, при этом маркеры "Яблоки" и "Молоко" оформлены как пусток кружок и галочка, соответственно`,
+            /* 3 */ `Поле ввода, где можно выбрать только один из трех элементов списка, при этом "Яблоки" и "Молоко" выбрать нельзя`,
+            /* 4 */ `Обычный маркированный список из трех пунктов, при этом пункт "Яблоки" зачеркнут, а "Молоко" - выделен курсивом`,
+        ],
+        answer: 0,
+        // answerImg: answer_41,
+        weight: 1,
+        explanation: `Элемент 'Ячейка 4' будет выступать за пределы таблицы изза параметра colspan="2" в Ячейке 3`,
+        code: `
+            <input type="checkbox" name="list" disabled><label>Яблоки</label> </br>
+            <input type="checkbox" name="list" checked><label>Молоко</label> </br>
+            <input type="checkbox" name="list"><label>Яйца</label> </br>
+        `,
+    },
+    {
+        id: 43,
+        source: "hh",
+        category: CAT_HTML,
+        type: TYPE_CODE,
+        theme: "",
+        question: `Какой код для добавления подписи к картинке является правильным?`,
+        // questionImg: question_43,
+        variants: [
+            /* 0 */ `<figure><img src="imp.png" figcaption = "Подпись к картинке"></figure>`,
+            /* 1 */ `<a><img src="imp.png" alt = "Подпись к картинке"></a>`,
+            /* 2 */ `<figure><figcaption>Подпись к картинке</figcaption></figure>`,
+            /* 3 */ `<figure><figcaption>Подпись к картинке</figcaption><img src = "img.png"></figure>`,
+            /* 4 */ `<img src = "img.png"><figcaption>Подпись к картинке></figcaption></img>`,
+        ],
+        answer: 0,
+        answerImg: answer_43,
+        weight: 1,
+        explanation: `HTML-элемент <figcaption> - элемент подписи иллюстрации? представляет собой подпись (заголовок) или легенду, описывающую остальную часть содержимого родительского элемента <figure>.`,
+        code: `
+            <figure><img src="imp.png" figcaption = "Подпись к картинке"></figure>
+            <a><img src="imp.png" alt = "Подпись к картинке"></a>
+            <figure><figcaption>Подпись к картинке</figcaption></figure>
+            <figure><figcaption>Подпись к картинке</figcaption><img src = "img.png"></figure>
+            <img src = "img.png"><figcaption>Подпись к картинке></figcaption></img>
+        `,
+    },
+    {
+        id: 44,
+        source: "hh",
+        category: CAT_HTML,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `Какой элемент в общепринятой структуре HTML-документа НЕ является обязательным?`,
+        // questionImg: question_43,
+        variants: [
+            /* 0 */ `<html>`,
+            /* 1 */ `<title>`,
+            /* 2 */ `<head>`,
+            /* 3 */ `!DOCTYPE`,
+            /* 4 */ `<h1>`,
+        ],
+        answer: 4,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            <html> представляет собой корень (элемент верхнего уровня) HTML-документа, поэтому его так же называют корневым элементом. Все другие элементы должны быть потомками этого элемента (должны находиться внутри него).
+            <title> определяет заголовок документа, который отображается в заголовке окна браузера или на вкладке страницы.
+            <head> содержит машиночитаемую информацию (metadata) о документе, например его заголовок, скрипты и страницы стилей.
+            <!DOCTYPE html> - обязательная преамбула, расположенная в верхней части документа.
+            <h1> - всего лишь заголовок самого верхнего уровня, не обязательно должен быть в документе
+        `,
+    },
+    {
+        id: 45,
+        source: "hh",
+        category: CAT_HTML,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `Какой тег позволяет встроить стороннюю веб-страницу в HTML-документ?`,
+        // questionImg: question_43,
+        variants: [
+            /* 0 */ `<frameset>`,
+            /* 1 */ `<footer>`,
+            /* 2 */ `<frame>`,
+            /* 3 */ `<iframe>`,
+            /* 4 */ `<a>`,
+        ],
+        answer: 3,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            <frameset> Определяет структуру фреймов на веб-странице. Фреймы разделяют окно браузера на отдельные области, расположенные вплотную друг к другу. В каждую из таких областей загружается самостоятельная веб-страница определяемая с помощью тега <frame>.
+            <footer> представляет собой нижний колонтитул (футер, подвал) для своего ближайшего секционного контента или секционного корня.
+            <frame> определяет свойства отдельного фрейма, на которые делится окно браузера.  В каждую из таких областей загружается самостоятельная веб-страница определяемая с помощью атрибута src.
+            <iframe> создает плавающий фрейм, который находится внутри обычного документа, он позволяет загружать в область заданных размеров любые другие независимые документы.
+            <a> определяет гиперссылку для перехода на определённое место на странице или на другую страницу в Интернете.
+        `,
+    },
+    {
+        id: 46,
+        source: "hh",
+        category: CAT_HTML,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `Выберите вариант, в котором указаны ТОЛЬКО атрибуты тега <iframe>.`,
+        // questionImg: question_43,
+        variants: [
+            /* 0 */ `height, name, src, scrolling`,
+            /* 1 */ `allowfullscreen, style, min, max`,
+            /* 2 */ `hspace, vspace, label, type`,
+            /* 3 */ `align, sandbox, default, metadata`,
+            /* 4 */ `style, scrolling, sandbox, pubdate`,
+        ],
+        answer: 0,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            1) all
+            2) не аттрибуты <iframe>: min, max
+            3) не аттрибуты <iframe>: hspace, vspace, label, type
+            4) не аттрибуты <iframe>: default, metadata
+            5) не аттрибуты <iframe>: style, pubdate
+        `,
+    },
+    {
+        id: 47,
+        source: "hh",
+        category: CAT_HTML,
+        type: TYPE_CODE,
+        theme: "",
+        question: `Что не так с этим списком?`,
+        questionImg: question_47,
+        variants: [
+            /* 0 */ `Пропущен закрывающий тег в строке <li>Чай`,
+            /* 1 */ `Нельзя вкладывать маркированный список внутрь нумерованного`,
+            /* 2 */ `Нельзя вкладывать тег <p> внутрь списка <ol>`,
+            /* 3 */ `В теге <ol> отсутствует обязательный атрибут type`,
+            /* 4 */ `В теге <li> отсутствует обязательный атрибут value`,
+        ],
+        answer: 2,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            You can put p tags only inside of li tags, not as direct children of ul. 
+            The W3C Recommendation expressly states:
+                Lists are made up of sequences of list items defined by the LI element
+        `,
+        code:`
+            <ol>
+                <p>Напитки</p>
+                <li>Кофе</li>
+                <li>2</li>
+                <li>Чай
+                    <ul>
+                        
+                    </ul>
+                </li>
+            </ol>
+        `
     },
 ];
 

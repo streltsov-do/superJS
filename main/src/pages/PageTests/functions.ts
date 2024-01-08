@@ -45,6 +45,8 @@ export const getBgColor = (complete: boolean, good: number) => {
     }
 };
 
+
+
 export const getResults = (
     arrSource: IntTestUnit[],
     arrAnswers: IntStateTest[],
@@ -52,15 +54,17 @@ export const getResults = (
     const results: IntResults = {
         rightAnswers: 0,
         totalQuestions: arrAnswers.length,
+        resultsArray: [],
     };
     for (let i = 0; i < arrSource.length; i++) {
         const answerUser = arrAnswers[i].answer;
         const answerSrc = arrSource[arrAnswers[i].id].answer;
 
         const good = getRightAnswer(answerSrc, answerUser);
-        results.rightAnswers = good
+        results.rightAnswers = (good===1)
             ? ++results.rightAnswers
             : results.rightAnswers;
+        results.resultsArray[i]=good;
     }
 
     return results;

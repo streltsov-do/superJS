@@ -19,11 +19,12 @@ import {
     getResults,
     initTests,
     randomizeOrder,
-    getRightAnswer,
     getBgColor,
 } from "./functions";
 
 const { Title } = Typography;
+
+const develop = true;
 
 const tableColumns = [
     {
@@ -62,9 +63,10 @@ const tableData = [
 const PageTests = () => {
     const [complete, setComplete] = useState(false);
     const [showAnswers, setShowAnswers] = useState(0);
-    const [results, setResults] = useState({
+    const [results, setResults] = useState<IntResults>({
         rightAnswers: 0,
         totalQuestions: 0,
+        resultsArray: [],
     });
     const [tests, setTests] = useState<IntTestUnit[]>([]);
 
@@ -72,7 +74,7 @@ const PageTests = () => {
     const dispatch = useAppDispatch();
 
     const updateTests = () => {
-        const newTests = randomizeOrder(ARR_CHECK);
+        const newTests = develop ? ARR_CHECK : randomizeOrder(ARR_CHECK);
         setTests(newTests);
         dispatch(CHANGE(initTests(newTests)));
     };
@@ -81,6 +83,7 @@ const PageTests = () => {
         let res: IntResults = {
             rightAnswers: 0,
             totalQuestions: 0,
+            resultsArray: [],
         };
         if (!complete) {
             res = getResults(ARR_CHECK, testState);
@@ -150,15 +153,13 @@ const PageTests = () => {
                 )}
                 {
                     <Space direction="vertical" size="small">
-                        {tests.map((elem, index) => {
-                            const myAnswer = getRightAnswer(
-                                elem.answer,
-                                testState[index].answer,
-                            );
-                            return (
+                        {tests.map(
+                            (elem, index) =>
                                 (!complete ||
-                                    (showAnswers === 1 && myAnswer !== 1) ||
-                                    (showAnswers === 2 && myAnswer === 1) ||
+                                    (showAnswers === 1 &&
+                                        results.resultsArray[index] !== 1) ||
+                                    (showAnswers === 2 &&
+                                        results.resultsArray[index] === 1) ||
                                     showAnswers === 3) && (
                                     <TestUnit
                                         key={index}
@@ -175,11 +176,13 @@ const PageTests = () => {
                                         explanation={elem.explanation}
                                         complete={complete}
                                         userAnswer={testState[index].answer}
-                                        bgColor={getBgColor(complete, myAnswer)}
+                                        bgColor={getBgColor(
+                                            complete,
+                                            results.resultsArray[index],
+                                        )}
                                     />
-                                )
-                            );
-                        })}
+                                ),
+                        )}
                     </Space>
                     // )
                 }
