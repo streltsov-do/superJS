@@ -4,17 +4,14 @@ import { Card, Radio, RadioChangeEvent, Space, Checkbox, Image } from "antd";
 
 import type { CheckboxValueType } from "antd/es/checkbox/Group";
 
-import {
-    ANSWER_BAD,
-    ANSWER_GOOD,
-    ANSWER_NOT,
-    compareNumbers,
-    IntTestUnit,
-} from "./constants";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { CHANGE, IntStateTest } from "../../redux/sliceTest";
-// import { changeEx } from "../../redux/sliceExample";
 import { RootState } from "../../redux/reducers";
+import Title from "antd/es/typography/Title";
+import { IntTestUnit } from "../../types/commonTypes";
+import { ANSWER_BAD, ANSWER_GOOD } from "../../utils/constants";
+import { compareNumbers, alignText } from "../../utils/functions";
+import { TagUnit } from "../TagUnit/TagUnit";
 
 const { Meta } = Card;
 
@@ -49,7 +46,7 @@ const setNewState = (
 };
 
 const gridAnswer: React.CSSProperties = {
-    width: "50%",
+    width: "500px",
 };
 
 const getColor = (
@@ -99,7 +96,7 @@ function TestUnit(props: PropsTestUnit) {
     } = props;
 
     const gridMain: React.CSSProperties = {
-        width: complete ? "50%" : "100%",
+        width: complete ? "500px" : "1000px",
     };
 
     const stateTest = useAppSelector((state: RootState) => state.test);
@@ -136,13 +133,20 @@ function TestUnit(props: PropsTestUnit) {
                 )
             }
             // title={num + ". " + question}
-            title={<pre className="title">{num}. {question}</pre>}
+            title={
+                <pre className="title">
+                    {num}. {alignText(question)}
+                </pre>
+            }
             headStyle={{
                 backgroundColor: bgColor,
                 whiteSpace: "pre-wrap",
                 paddingTop: "10px",
                 paddingBottom: "10px",
+                userSelect: "none",
             }}
+            extra={<TagUnit category={category} />}
+            className="testCard"
         >
             <Card.Grid style={gridMain} hoverable={false}>
                 {typeof answer !== "number" ? (
@@ -151,10 +155,6 @@ function TestUnit(props: PropsTestUnit) {
                         disabled={complete}
                         defaultValue={userAnswerConverted}
                     >
-                        {/* <Meta
-                            title="Europe Street beat"
-                            description="www.instagram.com"
-                        /> */}
                         <Space direction="vertical">
                             {variants.map((val, idx) => {
                                 const borderStyle = getColor(
@@ -211,7 +211,13 @@ function TestUnit(props: PropsTestUnit) {
                 )}
             </Card.Grid>
             {complete && (
-                <Card.Grid style={gridAnswer} hoverable={false}></Card.Grid>
+                <Card.Grid
+                    className="explanation"
+                    style={gridAnswer}
+                    hoverable={false}
+                >
+                    {alignText(explanation)}
+                </Card.Grid>
             )}
         </Card>
     );

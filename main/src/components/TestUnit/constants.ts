@@ -1,3 +1,13 @@
+import {
+    IntTestUnit,
+    CAT_HTML,
+    CAT_JS,
+    TYPE_CODE,
+    TYPE_THEORY,
+    SOURCE_HH,
+    SOURCE_AMO,
+} from "../../types/commonTypes";
+
 import question_9 from "./img/question_9.jpg";
 import question_10 from "./img/question_10.jpg";
 import question_11 from "./img/question_11.jpg";
@@ -32,52 +42,11 @@ import answer_40 from "./img/answer_40.jpg";
 import answer_41 from "./img/answer_41.jpg";
 import answer_43 from "./img/answer_43.jpg";
 
-type QuestionCategory = "html" | "css" | "js" | "ts";
-const CAT_HTML: QuestionCategory = "html";
-const CAT_CSS: QuestionCategory = "css";
-const CAT_JS: QuestionCategory = "js";
-const CAT_TS: QuestionCategory = "ts";
-
-type QuestionType = "code" | "theory";
-const TYPE_CODE: QuestionType = "code";
-const TYPE_THEORY: QuestionType = "theory";
-
-export interface IntTestUnit {
-    id: number;
-    source?: string;
-    category: QuestionCategory;
-    type: QuestionType;
-    theme: "";
-    weight?: number;
-    question: string;
-    questionImg?: string;
-    variants: string[];
-    answer: number | number[];
-    answerImg?: string;
-    explanation: string;
-    code?: string | string[];
-    codeImg?: string;
-}
-
-export interface IntResults {
-    rightAnswers: number;
-    totalQuestions: number;
-    resultsArray: number[];
-}
-
-export function compareNumbers(a: number, b: number) {
-    return a - b;
-}
-
-export const ANSWER_GOOD = "lightgreen";
-export const ANSWER_BAD = "pink";
-export const ANSWER_NOT = "#FFEC59";
-
 const ARR_CHECK: IntTestUnit[] = [
     {
         id: 0,
-        source: "amo",
-        category: CAT_HTML,
+        source: SOURCE_AMO,
+        category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
         weight: 1,
@@ -94,7 +63,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 1,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
@@ -104,12 +73,16 @@ const ARR_CHECK: IntTestUnit[] = [
         variants: ["Модульная", "Глобальная", "Функциональная", "Блочная"],
         answer: [0, 1, 2, 3],
         explanation: `
+            1) Видимость в пределах модуля может существовать в модульных программах, состоящих из нескольких отдельных фрагментов кода, обычно находящихся в разных файлах.
+            2) Глобальная область видимости — идентификатор доступен во всём тексте программы.
+            3) Локальная область видимости (функциональная) — идентификатор доступен только внутри определённой функции (процедуры).
+            4) Блочная область видимости — это зона видимости переменных, объявленных внутри блока кода. 
         `,
     },
     {
         id: 2,
         type: TYPE_THEORY,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         theme: "",
         weight: 1,
@@ -118,12 +91,23 @@ const ARR_CHECK: IntTestUnit[] = [
         variants: ['""', "[]", "0", "null"],
         answer: [0, 2, 3],
         explanation: `
+            Полный список ложный значений:
+            false - Ключевое слово false.
+            0 - Ноль Number (к нему также относятся 0.0, 0x0 и т.д.).
+            -0 - Отрицательный ноль типа Number (к нему также относятся -0.0, -0x0 и т.д.).
+            "", '', \`\` - Значение, содержащее пустую строку .
+            null - null — отсутствие какого-либо значения.
+            undefined - undefined — примитивное значение.
+            NaN (en-US) - NaN — значение, не являющиеся числом.
+            
+            0n - Ноль типа BigInt (также 0x0n). Обратите внимание, что не может быть негативного нуля типа BigInt — отрицательный 0n равняется 0n.
+            document.all - Объекты считаются ложноподобными тогда и только тогда, когда у них есть внутренний слот [[IsHTMLDDA]]. Этот слот есть только в объекте document.all, и его нельзя задать через JavaScript.
         `,
     },
     {
         id: 3,
         type: TYPE_THEORY,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         theme: "",
         weight: 1,
@@ -136,12 +120,13 @@ const ARR_CHECK: IntTestUnit[] = [
         ],
         answer: 2,
         explanation: `
+            Можно один за другим использовать пару операторов НЕ, чтобы явным образом принудительно преобразовать любое значение в соответствующий булевый примитив.
         `,
     },
     {
         id: 4,
         type: TYPE_THEORY,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         theme: "",
         weight: 2,
@@ -164,7 +149,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 5,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
@@ -178,11 +163,12 @@ const ARR_CHECK: IntTestUnit[] = [
         ],
         answer: 2,
         explanation: `
+            Обе указанные арифметические операции вернут NaN
         `,
     },
     {
         id: 6,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
@@ -200,7 +186,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 7,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
@@ -213,12 +199,13 @@ const ARR_CHECK: IntTestUnit[] = [
         ],
         answer: 1,
         explanation: `
+            Объект Promise используется для отложенных и асинхронных вычислений.
         `,
     },
 
     {
         id: 8,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
@@ -231,11 +218,12 @@ const ARR_CHECK: IntTestUnit[] = [
         ],
         answer: 1,
         explanation: `
+            Оператор (операторная функция) new создаёт экземпляр объекта, встроенного или определённого пользователем, имеющего конструктор.
         `,
     },
     {
         id: 9,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -245,6 +233,8 @@ const ARR_CHECK: IntTestUnit[] = [
         variants: ["true false", "null null", "42 null", "42 42"],
         answer: 2,
         explanation: `
+            Логический оператор ИЛИ (||) (дизъюнкция) возвращает значение одного из операндов, поэтому если этот оператор используется с небулевыми значениями, он вернет небулевое значение.
+            Логический оператор И (&&) (конъюнкция) вернёт значение первого ложноподобного операнда при вычислении, либо значение последнего операнда, если все операнды оказались истиноподобными.
         `,
         code: `
             const a = 42;
@@ -256,7 +246,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 10,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -266,6 +256,8 @@ const ARR_CHECK: IntTestUnit[] = [
         variants: ["logOr logAnd", "logOr", "logAnd", "Ошибка"],
         answer: 1,
         explanation: `
+            0 || 1 - вернёт 1 => вывод logOr
+            0 && 1 - вернёт 0 => logAnd не выведется
         `,
         code: `
             let x=0;
@@ -289,7 +281,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 11,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -299,6 +291,7 @@ const ARR_CHECK: IntTestUnit[] = [
         variants: ["1", "2", "NaN", "undefined", "Ошибка"],
         answer: 1,
         explanation: `
+            Сначала выполняется присваивание y=2, после x=y.
         `,
         code: `
             let y = 1;
@@ -309,7 +302,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 12,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -324,6 +317,7 @@ const ARR_CHECK: IntTestUnit[] = [
         explanation: `
             Поднятие (Hoisting) переменных/функций: объявление переменной или функции физически перемещается в начало вашего кода. 
             На самом же деле, объявления переменных и функций попадают в память в процессе фазы компиляции, но остаются в коде на том месте, где вы их объявили.
+            Стрелочные функции не поднимаются.
         `,
         code: `
             sayHi();
@@ -335,7 +329,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 13,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -345,7 +339,7 @@ const ARR_CHECK: IntTestUnit[] = [
         variants: ["undefined", "10", "9", "Цикл не завершится", "Ошибка"],
         answer: 0,
         explanation: `
-                i - блочная переменная (объявлена с помощью "let"). Вне цикла не существует
+                i - блочная переменная (объявлена с помощью "let"). Вне цикла не определена - будет ошибка ReferenceError
             `,
         code: `
                 for(let i=0; i<10; i++) {
@@ -357,7 +351,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 14,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -367,8 +361,7 @@ const ARR_CHECK: IntTestUnit[] = [
         variants: ["false, false ", "false, true", "true, false", "true, true"],
         answer: 0,
         explanation: `
-                Сравниваются ссылки на массив - не могут быть одинаковыми при объявлении 
-                (могут быть равными только при присваивании массива ??)
+                Сравниваются ссылки на массив - не могут быть одинаковыми.
             `,
         code: `
                 const arr1 = [1, 2, 3];
@@ -380,7 +373,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 15,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -390,7 +383,9 @@ const ARR_CHECK: IntTestUnit[] = [
         variants: ["Ivan", "undefined", "Ошибка"],
         answer: 2,
         explanation: `
-            This ссылается на глобальный объект, в строгом режиме будет ошибка.
+            При присвоении функции - копируется ссылка на функцию.
+            При таком вызове функции - This ссылается на глобальный объект, в строгом режиме будет ошибка.
+            (в нестрогом - undefined)
         `,
         code: `
             'use strict'
@@ -408,7 +403,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 16,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -435,7 +430,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 17,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -454,7 +449,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 18,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -464,7 +459,7 @@ const ARR_CHECK: IntTestUnit[] = [
         variants: ["20", "undefined", "Ошибка"],
         answer: 1,
         explanation: `
-            Несмотря на значения по умолчанию, мы инициализируем массив, который передаётся в фунцию - в её аргументе нету второго элемента массива.
+            Несмотря на значения по умолчанию, в функцию мы передаём массив с одним элементом.
         `,
         code: `
             function getSecondValue([first, second] = [10, 20]) {
@@ -476,7 +471,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 19,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -491,19 +486,19 @@ const ARR_CHECK: IntTestUnit[] = [
         ],
         answer: 2,
         explanation: `
-            'Vasya' и 10 передаются как массив аргументов в функцию
+            Аргумент функции - объект. При передаче вместо объекта строки и числа - поля объекта будут undefined
         `,
-        code: [
-            "function greetings({name, age}) {",
-            "    console.log(`Hello, ${name}. You're ${age}`);",
-            "}",
-            "/n",
-            "greetings('Vasya', 10);",
-        ],
+        code: `
+            function greetings({name, age}) {",
+                console.log(\`Hello, \${name}. You're \${age}\`);",
+            }",
+            /n",
+            greetings('Vasya', 10);
+        `,
     },
     {
         id: 20,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -513,8 +508,8 @@ const ARR_CHECK: IntTestUnit[] = [
         variants: ["Some message4", "Some message", "Ошибка", "true"],
         answer: 2,
         explanation: `
-            'apply' работает с массивом аргументов.
-            При использовании 'call' результат будет "Some message4"
+            Метод 'apply' работает с массивом аргументов => будет ошибка при вызове данного метода.
+            При использовании метода 'call' результат будет "Some message4"
         `,
         code: `
             const details = {
@@ -530,7 +525,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 21,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -540,8 +535,7 @@ const ARR_CHECK: IntTestUnit[] = [
         variants: [/* 0 */ "5", /* 1 */ "6", /* 2 */ "3"],
         answer: 0,
         explanation: `
-            При присвоении несуществующим элементам массива значений, появятся элементы с этими индексами,
-            а неинициализированные элементы будут равны 'undefined'
+            При присвоении несуществующим элементам массива значений, появятся элементы с этими индексами, а неинициализированные элементы будут равны 'undefined'
         `,
         code: `
             const arr = [1];
@@ -551,7 +545,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 22,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -575,7 +569,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 23,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -590,7 +584,10 @@ const ARR_CHECK: IntTestUnit[] = [
         ],
         answer: 1,
         explanation: `
-            
+            string - примитивный тип в JS (Undefined, Null, Boolean, Number, BigInt, String, and Symbol).
+            Непримитивный тип - Object.
+            В примитивных типах нет свойств - свойство не будет добавлено.
+            Тип Array - объект, ему можно добавить свойство.
         `,
         code: `
             const arr = [1, 2, 3];
@@ -605,7 +602,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 24,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -632,7 +629,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 25,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -646,30 +643,31 @@ const ARR_CHECK: IntTestUnit[] = [
         ],
         answer: 1,
         explanation: `
-            
+            Из-за затенения переменных, будет использоваться baseURL из самой внутренней фукнции - buildImagePath.
         `,
-        code: [
-            "const baseURL = 'https://base-url';",
-            "\n",
-            "const buildImagePath = () => {",
-            "    const baseURL = 'https://image-url';",
-            "\n",
-            "    return (url) => {",
-            "        return `${baseURL}${url}`;",
-            "    }",
-            "}",
-            "\n",
-            "const getImage = (url) => {",
-            "    const baseURL = 'https://image-url-number-2';",
-            "    return buildImagePath()(url);",
-            "}",
-            "\n",
-            "console.log(getImage('/image/path'));",
-        ],
+        code: 
+        `
+            const baseURL = 'https://base-url';
+            
+            const buildImagePath = () => {
+                const baseURL = 'https://image-url';
+                
+                return (url) => {
+                    return \`\${baseURL}\${url}\`;
+                }",
+            }
+            
+            const getImage = (url) => {
+                const baseURL = 'https://image-url-number-2';
+                return buildImagePath()(url);",
+            }
+            
+            console.log(getImage('/image/path'));
+        `,
     },
     {
         id: 26,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -701,7 +699,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 27,
-        source: "amo",
+        source: SOURCE_AMO,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -748,7 +746,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 28,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -778,7 +776,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 29,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
@@ -803,7 +801,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 30,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -831,7 +829,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 31,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
@@ -859,16 +857,18 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 32,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
-        question: `Вам нужен оператор, который подойдёт для целей:
-        - Выполнения различных действий в зависимости от условия
-        - Быстрого переключения между условиями нескольких возможных значений
-        - Сравнения строго по значению и типу
-        
-        Какой оператор лучше использовать?`,
+        question: `
+            Вам нужен оператор, который подойдёт для целей:
+            - Выполнения различных действий в зависимости от условия
+            - Быстрого переключения между условиями нескольких возможных значений
+            - Сравнения строго по значению и типу
+            
+            Какой оператор лучше использовать?
+        `,
         // questionImg: question_31,
         variants: [
             /* 0 */ `if-else`,
@@ -886,7 +886,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 33,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
@@ -902,18 +902,16 @@ const ARR_CHECK: IntTestUnit[] = [
         answer: 0,
         weight: 1,
         explanation: `
-            Константы (const) подчиняются области видимости уровня блока так же, как переменные, 
-            объявленные с использованием ключевого слова let.
+            Константы (const) подчиняются области видимости уровня блока так же, как переменные, объявленные с использованием ключевого слова let.
         `,
     },
     {
         id: 34,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_JS,
         type: TYPE_CODE,
         theme: "",
-        question: `Какой код необходимо подставить на место пропуска, 
-        чтобы в результате получился ответ [20, 40, 60, 80, 100]?`,
+        question: `Какой код необходимо подставить на место пропуска, чтобы в результате получился ответ [20, 40, 60, 80, 100]?`,
         questionImg: question_34,
         variants: [
             /* 0 */ `for (let i=0; i<array.length; i++)`,
@@ -942,21 +940,23 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 35,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
-        question: `Вы разрабатываете систему учета продаж для магазина электроники на JavaScript
-Вам необходимо создать программу, которая будет отслеживать информацию о проданных товарах 
-и вычислять общую прибыль.
+        question: `
+            Вы разрабатываете систему учета продаж для магазина электроники на JavaScript
+            Вам необходимо создать программу, которая будет отслеживать информацию о проданных товарах 
+            и вычислять общую прибыль.
 
-Необходимые функциональности:
-- Создание места для хранения обобщенной информации о проданных товарах
-- Добавление новых записей о продажах в раздельные списки данных: о сумме продажи, количестве проданных единиц
-- Расчёт общей прибыли на основе данных о продажах: например, суммы стоимости всех проданных товаров;
-вывод двух списков всех проданных товаров и общей прибыли
+            Необходимые функциональности:
+            - Создание места для хранения обобщенной информации о проданных товарах
+            - Добавление новых записей о продажах в раздельные списки данных: о сумме продажи, количестве проданных единиц
+            - Расчёт общей прибыли на основе данных о продажах: например, суммы стоимости всех проданных товаров;
+            вывод двух списков всех проданных товаров и общей прибыли
 
-Проанализируйте техническое задание. Как вы организуете структуру данных для хранения информации о товарах?`,
+            Проанализируйте техническое задание. Как вы организуете структуру данных для хранения информации о товарах?
+        `,
         // questionImg: question_34,
         variants: [
             /* 0 */ `Использую массив объектов`,
@@ -965,7 +965,7 @@ const ARR_CHECK: IntTestUnit[] = [
             /* 3 */ `Использую только объекты`,
             /* 4 */ "Использую вложенные массивы",
         ],
-        answer: -1,
+        answer: -2,
         weight: 1,
         explanation: `
             
@@ -973,7 +973,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 36,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
@@ -1010,7 +1010,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 37,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
@@ -1026,12 +1026,12 @@ const ARR_CHECK: IntTestUnit[] = [
         answer: 3,
         weight: 1,
         explanation: `
-            
+            Каждый объект в JS имеет внутреннюю ссылку на другой объект, называемый его прототипом. У объекта-прототипа также есть свой собственный прототип и так далее до тех пор, пока цепочка не завершится объектом, у которого свойство prototype равно null.
         `,
     },
     {
         id: 38,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
@@ -1066,7 +1066,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 39,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_JS,
         type: TYPE_THEORY,
         theme: "",
@@ -1085,7 +1085,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 40,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_HTML,
         type: TYPE_CODE,
         theme: "",
@@ -1101,7 +1101,7 @@ const ARR_CHECK: IntTestUnit[] = [
         answer: 4,
         answerImg: answer_40,
         weight: 1,
-        explanation: `Тэг <q> - однострочный комментарий, <blockquote> - многострочный`,
+        explanation: `Тэг <q> - однострочный комментарий, <blockquote> - многострочный`,
         code: `
             <blockquote>
                 <p>"Я знаю, что ничего не знаю"</p>
@@ -1128,7 +1128,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 41,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_HTML,
         type: TYPE_CODE,
         theme: "",
@@ -1144,7 +1144,7 @@ const ARR_CHECK: IntTestUnit[] = [
         answer: 4,
         answerImg: answer_41,
         weight: 1,
-        explanation: `Элемент 'Ячейка 4' будет выступать за пределы таблицы изза параметра colspan="2" в Ячейке 3`,
+        explanation: `Элемент 'Ячейка 4' будет выступать за пределы таблицы из-за параметра colspan="2" в Ячейке 3`,
         code: `
             <table>
                 <tr>
@@ -1160,7 +1160,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 42,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_HTML,
         type: TYPE_CODE,
         theme: "",
@@ -1185,7 +1185,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 43,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_HTML,
         type: TYPE_CODE,
         theme: "",
@@ -1212,7 +1212,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 44,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_HTML,
         type: TYPE_THEORY,
         theme: "",
@@ -1238,7 +1238,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 45,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_HTML,
         type: TYPE_THEORY,
         theme: "",
@@ -1264,7 +1264,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 46,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_HTML,
         type: TYPE_THEORY,
         theme: "",
@@ -1290,7 +1290,7 @@ const ARR_CHECK: IntTestUnit[] = [
     },
     {
         id: 47,
-        source: "hh",
+        source: SOURCE_HH,
         category: CAT_HTML,
         type: TYPE_CODE,
         theme: "",
@@ -1311,7 +1311,7 @@ const ARR_CHECK: IntTestUnit[] = [
             The W3C Recommendation expressly states:
                 Lists are made up of sequences of list items defined by the LI element
         `,
-        code:`
+        code: `
             <ol>
                 <p>Напитки</p>
                 <li>Кофе</li>
@@ -1322,7 +1322,7 @@ const ARR_CHECK: IntTestUnit[] = [
                     </ul>
                 </li>
             </ol>
-        `
+        `,
     },
 ];
 

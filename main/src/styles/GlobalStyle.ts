@@ -34,7 +34,21 @@ const GlobalStyle = createGlobalStyle`
         color: rgba(0, 0, 0, 0.88);
         font-weight: 600;
         font-size: 16px;
-        line-height: 115%;
+        line-height: 120%;
+        white-space: pre-wrap;
+    }
+    
+    .explanation{
+        white-space: pre-wrap;
+        background-color: lightgray;
+    }
+
+    .testCard{
+        max-width: 1002px;
+        width: auto;
+        @media (max-width: 1040px){
+            width: 500px;
+        }
     }
 
 `;
