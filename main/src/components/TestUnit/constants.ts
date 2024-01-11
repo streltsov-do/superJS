@@ -36,6 +36,12 @@ import question_40 from "./img/question_40.jpg";
 import question_41 from "./img/question_41.jpg";
 import question_42 from "./img/question_42.jpg";
 import question_47 from "./img/question_47.jpg";
+import question_52 from "./img/question_52.jpg";
+import question_54 from "./img/question_54.jpg";
+import question_55 from "./img/question_55.jpg";
+import question_58 from "./img/question_58.jpg";
+import question_59 from "./img/question_59.jpg";
+import question_60 from "./img/question_60.jpg";
 
 import answer_15 from "./img/answer_15.jpg";
 import answer_40 from "./img/answer_40.jpg";
@@ -645,8 +651,7 @@ const ARR_CHECK: IntTestUnit[] = [
         explanation: `
             Из-за затенения переменных, будет использоваться baseURL из самой внутренней фукнции - buildImagePath.
         `,
-        code: 
-        `
+        code: `
             const baseURL = 'https://base-url';
             
             const buildImagePath = () => {
@@ -1324,25 +1329,484 @@ const ARR_CHECK: IntTestUnit[] = [
             </ol>
         `,
     },
-];
+    {
+        id: 48,
+        source: SOURCE_HH,
+        category: CAT_JS,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `Переменные типа "число" в JavaScript могут содержать...`,
+        // questionImg: question_47,
+        variants: [
+            /* 0 */ `Только числа с плавающей точкой`,
+            /* 1 */ `Только целые числа произвольной длины`,
+            /* 2 */ `Как целые числа так и числа с плавающей точкой`,
+            /* 3 */ `Только целые числа`,
+            /* 4 */ `Только положительные числа`,
+        ],
+        answer: 0,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            В JavaScript, Number - числовой тип данных в формате 64-битного числа двойной точности с плавающей запятой.
+            Целые числа не рассматриваются как отдельный тип чисел.
+        `,
+        code: `
+        `,
+    },
+    {
+        id: 49,
+        source: SOURCE_HH,
+        category: CAT_JS,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `Как называется область видимости в JavaScript, которая позволяет объявлять переменные, доступные только внутри блока, где они были определены?`,
+        // questionImg: question_47,
+        variants: [
+            /* 0 */ `Глобальная область видимости`,
+            /* 1 */ `Область видимости цикла`,
+            /* 2 */ `Область видимости объекта`,
+            /* 3 */ `Блочная область видимости`,
+            /* 4 */ `Функциональная область видимости`,
+        ],
+        answer: 3,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            Блочная область видимости ограничивает видимость переменных только внутри блока кода, обычно определяемого фигурными скобками {}.
+        `,
+        code: `
+        `,
+    },
+    {
+        id: 50,
+        source: SOURCE_HH,
+        category: CAT_JS,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `Как называется область видимости в JavaScript, которая позволяет объявлять переменные, доступные только внутри блока, где они были определены?`,
+        // questionImg: question_47,
+        variants: [
+            /* 0 */ `Глобальная область видимости`,
+            /* 1 */ `Область видимости цикла`,
+            /* 2 */ `Область видимости объекта`,
+            /* 3 */ `Блочная область видимости`,
+            /* 4 */ `Функциональная область видимости`,
+        ],
+        answer: 3,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            Блочная область видимости ограничивает видимость переменных только внутри блока кода, обычно определяемого фигурными скобками {}.
+        `,
+        code: `
+        `,
+    },
+    {
+        id: 51,
+        source: SOURCE_HH,
+        category: CAT_JS,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `
+            Перед вами поставили задачу написать веб-приложение "Крестики-нолики". По техническому заданию вам необходимо сохранять состояние игры. Например, вы можете сохранить текущего игрока, расположение крестиков и ноликов на игровом поле и другие данные, чтобы игра могла быть возобновлена после перезагрузки страницы.
 
-// {
-//     id: 12,
-//     category: CAT_JS,
-//     type: TYPE_CODE,
-//     theme: "",
-//     question: "qqqqqqqqqqqqqqqqqq?",
-//     questionImg: iiiiiiiiiiiiiiiiiiiii,
-//     variants: [
-//         `1111111`,
-//         "2222222",
-//     ],
-//     answer: 0,
-//     weight: 1,
-//     explanation: `
-//     `,
-//     code: `
-//     `,
-// },
+            Какой тип хранилища вы подберёте?
+        `,
+        // questionImg: question_47,
+        variants: [
+            /* 0 */ `IndexedDB`,
+            /* 1 */ `Атрибуты форм (Form Attributes)`,
+            /* 2 */ `LocalStorage`,
+            /* 3 */ `Куки (cookies)`,
+            /* 4 */ `sessionStorage`,
+        ],
+        answer: 4,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            Данные в sessionStorage очищаются в момент окончания сессии текущий страницы. Сессия страницы остаётся активной все время пока окно браузера открыто и сохраняется между перезагрузками страниц.
+        `,
+        code: `
+        `,
+    },
+    {
+        id: 52,
+        source: SOURCE_HH,
+        category: CAT_JS,
+        type: TYPE_CODE,
+        theme: "",
+        question: `
+            Чему будет равен z после выполнения следующего кода?
+        `,
+        questionImg: question_52,
+        variants: [
+            /* 0 */ `2`,
+            /* 1 */ `1`,
+            /* 2 */ `3`,
+            /* 3 */ `0`,
+            /* 4 */ `2.5`,
+        ],
+        answer: 1,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            Оператор % возвращает целочисленный остаток от деления двух операндов.
+        `,
+        code: `
+            const x = 5;
+            const y = 2;
+            const z = x % y;
+        `,
+    },
+    {
+        id: 53,
+        source: SOURCE_HH,
+        category: CAT_JS,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `
+            Какой оператор используется для логического И (AND)?
+        `,
+        // questionImg: question_52,
+        variants: [
+            /* 0 */ `!`,
+            /* 1 */ `&`,
+            /* 2 */ `^`,
+            /* 3 */ `||`,
+            /* 4 */ `&&`,
+        ],
+        answer: 4,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            1) ! - 
+            2) & - Побитовое И - Возвращает единицу в каждой битовой позиции, для которой соответствующие биты обеих операндов являются единицами.
+            3) ^ - Исключающее ИЛИ - Возвращает единицу в каждой битовой позиции, для которой только один из соответствующих битов операндов является единицей.
+            4) || - Логическое ИЛИ
+            5) && - Логическое И
+        `,
+        code: `
+        `,
+    },
+    {
+        id: 54,
+        source: SOURCE_HH,
+        category: CAT_JS,
+        type: TYPE_CODE,
+        theme: "",
+        question: `
+            Что нужно вставить на место пропуска, чтобы выражение возвращало true с учётом типа данных?
+        `,
+        questionImg: question_54,
+        variants: [
+            /* 0 */ `===`,
+            /* 1 */ `!==`,
+            /* 2 */ `<>`,
+            /* 3 */ `==`,
+            /* 4 */ `=`,
+        ],
+        answer: 1,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            Для сравнения с учётом типа есть две операциии - строгое равенство === и строгое неравенство !==.
+            Для получения true в данном примере - нужно использовать строгое неравенство.
+        `,
+        code: `
+           const question = 5 ___'5';
+        `,
+    },
+    {
+        id: 55,
+        source: SOURCE_HH,
+        category: CAT_JS,
+        type: TYPE_CODE,
+        theme: "",
+        question: `
+            Что произойдет при выполнении следующего кода?
+        `,
+        questionImg: question_55,
+        variants: [
+            /* 0 */ `Будет выброшена ошибка синтаксиса`,
+            /* 1 */ `В консоль будет выведено "x находися в диапазоне от 5 до 15"`,
+            /* 2 */ `Зависит от значения переменной x`,
+            /* 3 */ `Ничего не произойдет, так как код содержит ошибку`,
+            /* 4 */ `В консоль будет выведено "x не находися в диапазоне от 5 до 15"`,
+        ],
+        answer: 1,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+
+        `,
+        code: `
+            const x = 10;
+
+            if (x > 5 && x < 15) {
+                console.log("x находися в диапазоне от 5 до 15");
+            } else {
+                console.log("x не находися в диапазоне от 5 до 15");
+            }
+        `,
+    },
+    {
+        id: 56,
+        source: SOURCE_HH,
+        category: CAT_JS,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `
+            У вас есть задача, в которой:
+            - Важно, чтобы при любых обстоятельствах блок кода выполнялся минимум один раз
+            - Есть динамические условия, которые могут изменяться в ходе выполнения блока кода
+            - Количество итераций заранее неизвестно
+
+            Какой тип оператора оптимально использовать для решения этой задачи?
+        `,
+        // questionImg: question_55,
+        variants: [
+            /* 0 */ `Рекурсия`,
+            /* 1 */ `Оператор ?`,
+            /* 2 */ `for`,
+            /* 3 */ `if else`,
+            /* 4 */ `while`,
+        ],
+        answer: 4,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            Рекурсия - функция, которая вызывает саму себя. Теоретически, подходит для ответа.
+            Операторы условия "?" и "if else" не подходят - выполняют одно условие из нескольких.
+            Оператор цикла "for" обычно применяется при известном количестве итераций.
+            Оператор "while" создаёт цикл, выполняющий заданную инструкцию, пока истинно проверяемое условие.
+            Оптимальный вариант при таком условии - оператор "do ... while" который обеспечивает выполнение выражения хотя бы 1 раз.
+        `,
+        code: `
+        `,
+    },
+    {
+        id: 57,
+        source: SOURCE_HH,
+        category: CAT_JS,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `
+            Какой из перечисленных вариантов объявления функции с параметрами является верным?
+        `,
+        // questionImg: question_55,
+        variants: [
+            /* 0 */ `function myFunction(parameters){}`,
+            /* 1 */ `function muFunction() {}`,
+            /* 2 */ `function muFunction {parameters}`,
+            /* 3 */ `function myFunction(parameters)`,
+            /* 4 */ `function myFunction = () => parameters`,
+        ],
+        answer: 0,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            Объявление функции (function definition, или function declaration, или function statement) состоит из ключевого слова function и следующих частей:
+
+            Имя функции.
+            Список параметров (принимаемых функцией) заключённых в круглые скобки () и разделённых запятыми.
+            Инструкции, которые будут выполнены после вызова функции, заключают в фигурные скобки { }. 
+        `,
+        code: `
+        `,
+    },
+    {
+        id: 58,
+        source: SOURCE_HH,
+        category: CAT_JS,
+        type: TYPE_CODE,
+        theme: "",
+        question: `
+            Что будет результатом выполнения данной функции?
+        `,
+        questionImg: question_58,
+        variants: [
+            /* 0 */ `10`,
+            /* 1 */ `20`,
+            /* 2 */ `30`,
+            /* 3 */ `Uncaught ReferenceError: x is not defined`,
+            /* 4 */ `undefined`,
+        ],
+        answer: 2,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            Функция innerFunction имеет доступ (замыкание) на переменные, находящиеся выше - в родительской функции outerFunction и глобальной области видимости.
+        `,
+        code: `
+            function outerFunction() {
+                const x=10;
+            
+                function innerFunction() {
+                    const y=20;
+                    console.log(x+y);
+                }
+            
+                innerFunction();
+            }
+        `,
+    },
+    {
+        id: 59,
+        source: SOURCE_HH,
+        category: CAT_HTML,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `
+            Что в этой строке кода является именем атрибута?
+        `,
+        questionImg: question_59,
+        variants: [
+            /* 0 */ `<h2>`,
+            /* 1 */ `align`,
+            /* 2 */ `"left"`,
+            /* 3 */ `Название статьи`,
+            /* 4 */ `</h2>`,
+        ],
+        answer: 1,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            У элементов HTML есть атрибуты; это дополнительные значения, которые настраивают элементы или регулируют их поведение различным способом, чтобы соответствовать критериям пользователей.
+        `,
+        code: `
+            <h2 align="left">Название статьи</h2>
+        `,
+    },
+    {
+        id: 60,
+        source: SOURCE_HH,
+        category: CAT_HTML,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `
+            Какая ошибка допущена в коде??
+        `,
+        questionImg: question_60,
+        variants: [
+            /* 0 */ `Закрывающий тег </html> не требуется`,
+            /* 1 */ `Синтаксис строки <!-- Это заголовки --> некорректен`,
+            /* 2 */ `Нарушена иерархия заголовков`,
+            /* 3 */ `В тегах отсутствует обязательный атрибут align`,
+            /* 4 */ `Используется больше одного заголовка`,
+        ],
+        answer: 2,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+
+        `,
+        code: `
+            <!DOCTYPE html>
+            <html>
+                <body>
+                    <!-- Это заголовки -->
+                    <h5>Название статьи</h5>
+                    <h1>Подзаголовок</h1>
+                </body>
+            </html>
+        `,
+    },
+    {
+        id: 61,
+        source: SOURCE_HH,
+        category: CAT_HTML,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `
+            Какая ошибка допущена в коде?
+        `,
+        // questionImg: question_60,
+        variants: [
+            /* 0 */ `<p>В этой строке   три пробела</p>`,
+            /* 1 */ `<p>В этой строке&nbsp;&nbsp;&nbsp;три пробела</p>`,
+            /* 2 */ `<p>В этой строке<br><br><br>три пробела</p>`,
+            /* 3 */ `<p space=3>В этой строке три пробела</p>`,
+            /* 4 */ `<p>В этой строке\s\s\sтри пробела</p>`,
+        ],
+        answer: 1,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            &nbsp; - символ неразрывного пробела в тексте
+        `,
+        code: `
+            <p>В этой строке   три пробела</p>
+            <p>В этой строке&nbsp;&nbsp;&nbsp;три пробела</p>
+            <p>В этой строке<br><br><br>три пробела</p>
+            <p space=3>В этой строке три пробела</p>
+            <p>В этой строке\s\s\sтри пробела</p>
+        `,
+    },
+    {
+        id: 62,
+        source: SOURCE_HH,
+        category: CAT_HTML,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `
+            Требуется разместить на странице картинку, при клике на которую пользователь переходит на другую страницу. Как правильно разместить такую картинку?
+        `,
+        // questionImg: question_60,
+        variants: [
+            /* 0 */ `<img href="/page.html" src="./picture.png" alt="Подпись к картинке"></img>`,
+            /* 1 */ `<a><img src="./picture.png" href="/page.html" alt="Подпись к картинке"></a>`,
+            /* 2 */ `<source href="/page.html"><img href="/picture.png"  alt="Подпись к картинке</source>`,
+            /* 3 */ `<img href="/page.html" src="./picture.png" alt="Подпись к картинке">`,
+            /* 4 */ `<a href="/page.html"><img="./picture.png" alt="Подпись к картинке"></a>`,
+            /* 5 */ `<img="./picture.png" alt="Подпись к картинке"><a href="/page.html"></a></img>`,
+        ],
+        answer: 4,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            Для создания картинки с ссылкой необходимо тег картинка <img> внутрь тега ссылки <a>.
+            Второй вариант не правильный, тк 'href' - атрибут тега ссылки <a>, а не тега картинки <img>.
+        `,
+        code: `
+            <img href="/page.html" src="./picture.png" alt="Подпись к картинке"></img>
+            <a><img src="./picture.png" href="/page.html" alt="Подпись к картинке"></a>
+            <source href="/page.html"><img href="/picture.png"  alt="Подпись к картинке</source>
+            <img href="/page.html" src="./picture.png" alt="Подпись к картинке">
+            <a href="/page.html"><img="./picture.png" alt="Подпись к картинке"></a>
+            <img="./picture.png" alt="Подпись к картинке"><a href="/page.html"></a></img>
+        `,
+    },
+    {
+        id: 63,
+        source: SOURCE_HH,
+        category: CAT_HTML,
+        type: TYPE_THEORY,
+        theme: "",
+        question: `
+            Выберите вариант ответа, в котором указаны ТОЛЬКО семантические теги.
+        `,
+        // questionImg: question_60,
+        variants: [
+            /* 0 */ `<aside>, <section>, <h1>`,
+            /* 1 */ `<footer>, <figcaption>, <main>`,
+            /* 2 */ `<header>, <article>, <a>`,
+            /* 3 */ `<nav>, <figure>, <img>`,
+            /* 4 */ `<div>, <span>, <display>`,
+        ],
+        answer: 0,
+        // answerImg: answer_43,
+        weight: 1,
+        explanation: `
+            1 - все элементы семантические теги
+            2 - Не семантические теги: <figcaption>
+            3 - Не семантические теги: <a>
+            4 - Не семантические теги: <img>
+            5 - Не семантические теги: <div>, <span>, <display> (это CSS-свойство, а не html-тег) 
+        `,
+        code: `
+        `,
+    },
+];
 
 export { ARR_CHECK };

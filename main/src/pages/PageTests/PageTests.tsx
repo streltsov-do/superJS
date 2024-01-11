@@ -134,51 +134,50 @@ const PageTests = () => {
     }, []);
 
     const changeFilterSource = (checkedValues: CheckboxValueType[]) => {
-        let newFilterState = filterState;
-        newFilterState.Source = checkedValues as QuestionSource[];
+        const newSource = checkedValues as QuestionSource[];
         setFilterState((filterState) => ({
             ...filterState,
-            newFilterState,
+            Source: newSource,
         }));
     };
 
     const changeFilterCategory = (checkedValues: CheckboxValueType[]) => {
-        let newFilterState = filterState;
-        newFilterState.Category = checkedValues as QuestionCategory[];
+        const newCategory = checkedValues as QuestionCategory[];
         setFilterState((filterState) => ({
             ...filterState,
-            newFilterState,
+            Category: newCategory,
         }));
     };
 
     const changeFilterType = (checkedValues: CheckboxValueType[]) => {
-        let newFilterState = filterState;
-        newFilterState.Type = checkedValues as QuestionType[];
+        const newType = checkedValues as QuestionType[];
         setFilterState((filterState) => ({
             ...filterState,
-            newFilterState,
+            Type: newType,
         }));
     };
 
     useEffect(() => {
         let newTests = tests;
-        if (filterState.Source.length > 0) {
-            newTests = newTests.filter((elem) => {
-                return filterState.Source.indexOf(elem.source) >= 0;
-            });
-        }
-        if (filterState.Category.length > 0) {
-            newTests = newTests.filter((elem) => {
-                return filterState.Category.indexOf(elem.category) >= 0;
-            });
-        }
-        if (filterState.Type.length > 0) {
-            newTests = newTests.filter((elem) => {
-                return filterState.Type.indexOf(elem.type) >= 0;
-            });
+        if (complete) {
+            if (filterState.Source.length > 0) {
+                newTests = newTests.filter((elem) => {
+                    return filterState.Source.indexOf(elem.source) >= 0;
+                });
+            }
+            if (filterState.Category.length > 0) {
+                newTests = newTests.filter((elem) => {
+                    return filterState.Category.indexOf(elem.category) >= 0;
+                });
+            }
+            if (filterState.Type.length > 0) {
+                newTests = newTests.filter((elem) => {
+                    return filterState.Type.indexOf(elem.type) >= 0;
+                });
+            }
         }
         setFilteredTests(newTests);
-    }, [filterState, tests]);
+    }, [filterState, tests, complete]);
 
     return (
         <Container>
