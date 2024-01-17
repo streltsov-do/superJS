@@ -35,7 +35,7 @@ export interface IntTestUnit {
     answer: number | number[];
     answerImg?: string;
     explanation: string;
-    code?: string | string[];
+    code?: string;
     codeImg?: string;
 }
 

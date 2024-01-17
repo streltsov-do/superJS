@@ -42,6 +42,12 @@ const GlobalStyle = createGlobalStyle`
         white-space: pre-wrap;
         background-color: lightgray;
     }
+    
+    .code{
+        white-space: pre-wrap;
+        background-color: gray;
+        color: blue;
+    }
 
     .testCard{
         max-width: 1002px;
@@ -49,6 +55,10 @@ const GlobalStyle = createGlobalStyle`
         @media (max-width: 1040px){
             width: 500px;
         }
+    }
+
+    .containerPageThird {
+        padding: 10px;
     }
 
 `;

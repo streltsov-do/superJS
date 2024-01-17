@@ -8,7 +8,7 @@ import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { CHANGE, IntStateTest } from "../../redux/sliceTest";
 import { RootState } from "../../redux/reducers";
 import Title from "antd/es/typography/Title";
-import { IntTestUnit } from "../../types/commonTypes";
+import { IntTestUnit, TYPE_CODE } from "../../types/commonTypes";
 import { ANSWER_BAD, ANSWER_GOOD } from "../../utils/constants";
 import { compareNumbers, alignText } from "../../utils/functions";
 import { TagUnit } from "../TagUnit/TagUnit";
@@ -20,6 +20,8 @@ interface PropsTestUnit extends IntTestUnit {
     complete: boolean;
     userAnswer: number | number[];
     bgColor: string;
+    showAnswer: boolean;
+    showCode: boolean;
 }
 
 const setNewState = (
@@ -54,6 +56,7 @@ const getColor = (
     idx: number,
     answerSrc: number | number[],
     answerUser: number | number[],
+    showAnswer: boolean,
 ) => {
     const answerSrcArr = answerSrc as number[];
     const answerUserArr = answerUser as number[];
@@ -64,10 +67,10 @@ const getColor = (
     if (complete) {
         for (let i = 0; i < answerSrcArr.length; i++) {
             if (answerUserArr[i] === idx) {
-                borderStyle.color = ANSWER_BAD;
+                borderStyle.color = (answerSrcArr[i] === idx) ? ANSWER_GOOD : ANSWER_BAD;
                 borderStyle.border = "solid";
             }
-            if (answerSrcArr[i] === idx) {
+            if ((answerSrcArr[i] === idx) && showAnswer) {
                 borderStyle.color = ANSWER_GOOD;
                 borderStyle.border = "solid";
             }
@@ -92,7 +95,10 @@ function TestUnit(props: PropsTestUnit) {
         explanation,
         complete,
         bgColor,
+        code,
         userAnswer,
+        showAnswer,
+        showCode,
     } = props;
 
     const gridMain: React.CSSProperties = {
@@ -145,7 +151,17 @@ function TestUnit(props: PropsTestUnit) {
                 paddingBottom: "10px",
                 userSelect: "none",
             }}
-            extra={<TagUnit category={category} />}
+            extra={
+                <>
+                    {/* {complete && (
+                        <>
+                            <Checkbox>Ответ</Checkbox>
+                            <Checkbox>Код</Checkbox>
+                        </>
+                    )} */}
+                    <TagUnit category={category} />
+                </>
+            }
             className="testCard"
         >
             <Card.Grid style={gridMain} hoverable={false}>
@@ -162,6 +178,7 @@ function TestUnit(props: PropsTestUnit) {
                                     idx,
                                     answer,
                                     userAnswer,
+                                    showAnswer,
                                 );
                                 return (
                                     <Checkbox
@@ -195,10 +212,10 @@ function TestUnit(props: PropsTestUnit) {
                                     value={idx}
                                     style={{
                                         color: complete
-                                            ? idx === answer
+                                            ? idx === answer && showAnswer
                                                 ? "green"
                                                 : idx === userAnswer
-                                                  ? "red"
+                                                  ? (idx === answer?"green":"red")
                                                   : ""
                                             : "",
                                     }}
@@ -210,13 +227,22 @@ function TestUnit(props: PropsTestUnit) {
                     </Radio.Group>
                 )}
             </Card.Grid>
-            {complete && (
+            {complete && showAnswer && (
                 <Card.Grid
                     className="explanation"
                     style={gridAnswer}
                     hoverable={false}
                 >
                     {alignText(explanation)}
+                </Card.Grid>
+            )}
+            {complete && showCode && type === TYPE_CODE && (
+                <Card.Grid
+                    className="code"
+                    style={gridAnswer}
+                    hoverable={false}
+                >
+                    {alignText(code as string)}
                 </Card.Grid>
             )}
         </Card>

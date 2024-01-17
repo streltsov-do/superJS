@@ -39,7 +39,10 @@ import { CheckboxValueType } from "antd/es/checkbox/Group";
 
 const { Title } = Typography;
 
-const develop = true;
+const develop = {
+    questionStrictOrder: false,
+    testButton: false,
+}
 
 const tableColumns = [
     {
@@ -77,7 +80,7 @@ const tableData = [
 
 const PageTests = () => {
     const [complete, setComplete] = useState(false);
-    const [showAnswers, setShowAnswers] = useState(0);
+    const [showCards, shsetShowCards] = useState(0);
     const [results, setResults] = useState<IntResults>({
         rightAnswers: 0,
         totalQuestions: 0,
@@ -91,6 +94,8 @@ const PageTests = () => {
     });
     const [filteredTests, setFilteredTests] = useState<IntTestUnit[]>([]);
     const [openDrawer, setOpenDrawer] = useState(false);
+    const [showAnswer, setShowAnswer] = useState(false);
+    const [showCode, setShowCode] = useState(false);
 
     const showDrawer = () => {
         setOpenDrawer(true);
@@ -104,7 +109,7 @@ const PageTests = () => {
     const dispatch = useAppDispatch();
 
     const updateTests = () => {
-        const newTests = develop ? ARR_CHECK : randomizeOrder(ARR_CHECK);
+        const newTests = develop.questionStrictOrder ? ARR_CHECK : randomizeOrder(ARR_CHECK);
         setTests(newTests);
         dispatch(CHANGE(initTests(newTests)));
     };
@@ -118,7 +123,7 @@ const PageTests = () => {
         if (!complete) {
             res = getResults(ARR_CHECK, testState);
         } else {
-            setShowAnswers(0);
+            shsetShowCards(0);
             updateTests();
         }
         setResults(res);
@@ -126,7 +131,22 @@ const PageTests = () => {
     };
 
     const onChangeRadio = (e: RadioChangeEvent) => {
-        setShowAnswers(e.target.value);
+        shsetShowCards(e.target.value);
+    };
+
+    const onChangeCheck = (checkedValues: CheckboxValueType[]) => {
+        let answers = false;
+        let code = false;
+        for (const str of checkedValues) {
+            if (str === "answers") {
+                answers = true;
+            }
+            if (str === "code") {
+                code = true;
+            }
+        }
+        setShowAnswer(answers);
+        setShowCode(code);
     };
 
     useEffect(() => {
@@ -179,6 +199,9 @@ const PageTests = () => {
         setFilteredTests(newTests);
     }, [filterState, tests, complete]);
 
+    const results_final: number =
+        (results.rightAnswers / results.totalQuestions) * 100;
+
     return (
         <Container>
             <Title level={2}>Тестирование</Title>
@@ -186,80 +209,125 @@ const PageTests = () => {
             {/* <hr></hr> */}
             {/* <Check></Check> */}
             <Space direction="vertical" size="middle">
-                {develop && (
+                {develop.testButton && (
                     <Button size="large" onClick={handleClick}>
                         TST
                     </Button>
                 )}
                 {complete && (
                     <>
-                        <span>
-                            Ваш результат{" "}
-                            {(
-                                (results.rightAnswers /
-                                    results.totalQuestions) *
-                                100
-                            ).toFixed(2)}
-                            % [{results.rightAnswers}/{results.totalQuestions}]
-                        </span>
-                        <Button onClick={showDrawer}>Фильтры</Button>
-                        <Drawer
-                            placement="right"
-                            open={openDrawer}
-                            onClose={closeDrawer}
-                            title="Фильтры"
-                        >
-                            <Space direction="vertical">
-                                <h4>Источник</h4>
-                                <Checkbox.Group onChange={changeFilterSource}>
-                                    <Space direction="vertical">
-                                        {FILTER_SOURCE.map((val, idx) => (
-                                            <Checkbox key={idx} value={val}>
-                                                {val}
-                                            </Checkbox>
-                                        ))}
-                                    </Space>
-                                </Checkbox.Group>
-                                <h4>Категория</h4>
-                                <Checkbox.Group onChange={changeFilterCategory}>
-                                    <Space direction="vertical">
-                                        {FILTER_CATEGORY.map((val, idx) => (
-                                            <Checkbox key={idx} value={val}>
-                                                {val}
-                                            </Checkbox>
-                                        ))}
-                                    </Space>
-                                </Checkbox.Group>
-                                <h4>Тип</h4>
-                                <Checkbox.Group onChange={changeFilterType}>
-                                    <Space direction="vertical">
-                                        {FILTER_TYPE.map((val, idx) => (
-                                            <Checkbox key={idx} value={val}>
-                                                {val}
-                                            </Checkbox>
-                                        ))}
-                                    </Space>
-                                </Checkbox.Group>
+                        <Space direction="vertical" size="small">
+                            <Space>
+                                <Title level={3}>Ваш результат</Title>
+                                <Title
+                                    level={3}
+                                    type={
+                                        results_final > 70
+                                            ? "success"
+                                            : results_final > 40
+                                              ? "warning"
+                                              : "danger"
+                                    }
+                                >
+                                    {results_final.toFixed(2)}% [
+                                    {results.rightAnswers}/
+                                    {results.totalQuestions}]
+                                </Title>
                             </Space>
-                        </Drawer>
-                        <Radio.Group
-                            value={showAnswers}
-                            onChange={onChangeRadio}
-                        >
-                            <Radio key="hide" value={0}>
-                                Скрыть
-                            </Radio>
-                            <Radio key="bad" value={1}>
-                                Показать ошибки
-                            </Radio>
-                            <Radio key="good" value={2}>
-                                Показать правильные ответы
-                            </Radio>
-                            <Radio key="all" value={3}>
-                                Показать всё
-                            </Radio>
-                        </Radio.Group>
-                        {showAnswers !== 0 && (
+                            <Button onClick={showDrawer}>Фильтры</Button>
+                            <Drawer
+                                placement="right"
+                                open={openDrawer}
+                                onClose={closeDrawer}
+                                title="Фильтры"
+                            >
+                                <Space direction="vertical">
+                                    <h4>Источник</h4>
+                                    <Checkbox.Group
+                                        onChange={changeFilterSource}
+                                    >
+                                        <Space direction="vertical">
+                                            {FILTER_SOURCE.map((val, idx) => (
+                                                <Checkbox key={idx} value={val}>
+                                                    {val}
+                                                </Checkbox>
+                                            ))}
+                                        </Space>
+                                    </Checkbox.Group>
+                                    <h4>Категория</h4>
+                                    <Checkbox.Group
+                                        onChange={changeFilterCategory}
+                                    >
+                                        <Space direction="vertical">
+                                            {FILTER_CATEGORY.map((val, idx) => (
+                                                <Checkbox key={idx} value={val}>
+                                                    {val}
+                                                </Checkbox>
+                                            ))}
+                                        </Space>
+                                    </Checkbox.Group>
+                                    <h4>Тип</h4>
+                                    <Checkbox.Group onChange={changeFilterType}>
+                                        <Space direction="vertical">
+                                            {FILTER_TYPE.map((val, idx) => (
+                                                <Checkbox key={idx} value={val}>
+                                                    {val}
+                                                </Checkbox>
+                                            ))}
+                                        </Space>
+                                    </Checkbox.Group>
+                                </Space>
+                            </Drawer>
+                            <Space
+                                style={{
+                                    padding: "5px",
+                                    borderRadius: "5px",
+                                    border: "1px solid #d9d9d9",
+                                }}
+                            >
+                                <div>Подробности:</div>
+                                <Radio.Group
+                                    value={showCards}
+                                    onChange={onChangeRadio}
+                                >
+                                    <Radio key="hide" value={0}>
+                                        Скрыть
+                                    </Radio>
+                                    <Radio key="bad" value={1}>
+                                        Показать ошибки
+                                    </Radio>
+                                    <Radio key="good" value={2}>
+                                        Показать правильные ответы
+                                    </Radio>
+                                    <Radio key="all" value={3}>
+                                        Показать всё
+                                    </Radio>
+                                </Radio.Group>
+                            </Space>
+                            {showCards !== 0 && (
+                                <Space
+                                    style={{
+                                        padding: "5px",
+                                        borderRadius: "5px",
+                                        border: "1px solid #d9d9d9",
+                                    }}
+                                >
+                                    <div>Показать:</div>
+                                    <Checkbox.Group onChange={onChangeCheck}>
+                                        <Checkbox
+                                            key="answers"
+                                            value={"answers"}
+                                        >
+                                            Ответы
+                                        </Checkbox>
+                                        <Checkbox key="code" value={"code"}>
+                                            Код для копирования
+                                        </Checkbox>
+                                    </Checkbox.Group>
+                                </Space>
+                            )}
+                        </Space>
+                        {showCards !== 0 && (
                             <Table
                                 columns={tableColumns}
                                 dataSource={tableData}
@@ -274,11 +342,11 @@ const PageTests = () => {
                         {filteredTests.map(
                             (elem, index) =>
                                 (!complete ||
-                                    (showAnswers === 1 &&
+                                    (showCards === 1 &&
                                         results.resultsArray[index] !== 1) ||
-                                    (showAnswers === 2 &&
+                                    (showCards === 2 &&
                                         results.resultsArray[index] === 1) ||
-                                    showAnswers === 3) && (
+                                    showCards === 3) && (
                                     <TestUnit
                                         key={index}
                                         num={index + 1}
@@ -295,10 +363,13 @@ const PageTests = () => {
                                         complete={complete}
                                         userAnswer={testState[index].answer}
                                         source={elem.source}
+                                        code={elem.code}
                                         bgColor={getBgColor(
                                             complete,
                                             results.resultsArray[index],
                                         )}
+                                        showAnswer={showAnswer}
+                                        showCode={showCode}
                                     />
                                 ),
                         )}
