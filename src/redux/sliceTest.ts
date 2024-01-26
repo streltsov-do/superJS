@@ -12,12 +12,12 @@ const sliceTest = createSlice({
     initialState,
     reducers: {
         CHANGE(state, action: PayloadAction<IntStateTest[]>) {
-            state=action.payload
+            state = action.payload;
             return state;
-        }
+        },
     },
 });
 
-export const { CHANGE} = sliceTest.actions;
+export const { CHANGE } = sliceTest.actions;
 
 export default sliceTest.reducer;

@@ -4,8 +4,8 @@ import sliceTest from "./sliceTest";
 
 export const store = configureStore({
     reducer: {
-        test: sliceTest
-    }
+        test: sliceTest,
+    },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,10 +1,10 @@
 import { Anchor, Space } from "antd";
 import Title from "antd/es/typography/Title";
-import React from "react";
+import "./styles/style.css";
 
 const PageThird = () => {
     return (
-        <div className="containerPageThird">
+        <div className="page-third">
             <Space direction="vertical">
                 {/* <Anchor> */}
                 <Title level={1}>Полезные ссылки:</Title>

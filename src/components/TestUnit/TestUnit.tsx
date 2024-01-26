@@ -67,10 +67,11 @@ const getColor = (
     if (complete) {
         for (let i = 0; i < answerSrcArr.length; i++) {
             if (answerUserArr[i] === idx) {
-                borderStyle.color = (answerSrcArr[i] === idx) ? ANSWER_GOOD : ANSWER_BAD;
+                borderStyle.color =
+                    answerSrcArr[i] === idx ? ANSWER_GOOD : ANSWER_BAD;
                 borderStyle.border = "solid";
             }
-            if ((answerSrcArr[i] === idx) && showAnswer) {
+            if (answerSrcArr[i] === idx && showAnswer) {
                 borderStyle.color = ANSWER_GOOD;
                 borderStyle.border = "solid";
             }
@@ -215,7 +216,9 @@ function TestUnit(props: PropsTestUnit) {
                                             ? idx === answer && showAnswer
                                                 ? "green"
                                                 : idx === userAnswer
-                                                  ? (idx === answer?"green":"red")
+                                                  ? idx === answer
+                                                      ? "green"
+                                                      : "red"
                                                   : ""
                                             : "",
                                     }}

@@ -3,8 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { Provider } from "react-redux";
 
-import { GlobalStyle } from "./styles/GlobalStyle";
-// import { FontStyles } from "./styles/Fonts/FontStyles";
 import { store } from "./redux/reducers";
 
 const root = ReactDOM.createRoot(
@@ -15,7 +13,6 @@ root.render(
     <>
         <React.StrictMode>
             {/* <FontStyles /> */}
-            <GlobalStyle />
             <Provider store={store}>
                 <App />
             </Provider>

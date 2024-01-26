@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Container, Square } from "./styles/PageTests";
-import { Check } from "../../components/TestUnit/Check";
 import { TestUnit } from "../../components/TestUnit/TestUnit";
 
 import {
@@ -36,13 +34,14 @@ import {
     getBgColor,
 } from "../../utils/functions";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
+import "./styles/style.css";
 
 const { Title } = Typography;
 
 const develop = {
     questionStrictOrder: false,
     testButton: false,
-}
+};
 
 const tableColumns = [
     {
@@ -61,19 +60,19 @@ const tableData = [
     {
         key: "1",
         name: "red",
-        color: <Square bgColor={ANSWER_BAD} />,
+        color: <div className="square square--red" />,
         description: "Неправильный ответ",
     },
     {
         key: "2",
         name: "yellow",
-        color: <Square bgColor={ANSWER_NOT} />,
+        color: <div className="square square--yellow" />,
         description: "Нет ответа",
     },
     {
         key: "3",
         name: "green",
-        color: <Square bgColor={ANSWER_GOOD} />,
+        color: <div className="square square--green" />,
         description: "Правильный ответ",
     },
 ];
@@ -109,7 +108,9 @@ const PageTests = () => {
     const dispatch = useAppDispatch();
 
     const updateTests = () => {
-        const newTests = develop.questionStrictOrder ? ARR_CHECK : randomizeOrder(ARR_CHECK);
+        const newTests = develop.questionStrictOrder
+            ? ARR_CHECK
+            : randomizeOrder(ARR_CHECK);
         setTests(newTests);
         dispatch(CHANGE(initTests(newTests)));
     };
@@ -203,16 +204,16 @@ const PageTests = () => {
         (results.rightAnswers / results.totalQuestions) * 100;
 
     return (
-        <Container>
+        <div className="page-test">
             <Title level={2}>Тестирование</Title>
 
-            {/* <hr></hr> */}
-            {/* <Check></Check> */}
             <Space direction="vertical" size="middle">
                 {develop.testButton && (
-                    <Button size="large" onClick={handleClick}>
-                        TST
-                    </Button>
+                    <>
+                        <Button size="large" onClick={handleClick}>
+                            TST
+                        </Button>
+                    </>
                 )}
                 {complete && (
                     <>
@@ -380,7 +381,7 @@ const PageTests = () => {
                     {complete ? "Выйти" : "Завершить"}
                 </Button>
             </Space>
-        </Container>
+        </div>
     );
 };
 

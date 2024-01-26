@@ -1,8 +1,10 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { PageMain } from "../../pages/PageMain/PageMain";
 import { PageTests } from "../../pages/PageTests/PageTests";
 import { PageTheory } from "../../pages/PageTheory/PageTheory";
 import { PageThird } from "../../pages/PageThird/PageThird";
+import "./styles/style.css";
 
 type typeRoutesArr = Array<{
     path: string;
@@ -10,8 +12,12 @@ type typeRoutesArr = Array<{
 }>;
 
 const ARR_PATH: typeRoutesArr = [
+    // {
+    //     path: "/",
+    //     element: <PageMain />,
+    // },
     {
-        path: "/",
+        path: "/tests",
         element: <PageTests />,
     },
     {
@@ -24,18 +30,31 @@ const ARR_PATH: typeRoutesArr = [
     },
 ];
 
-const Main = () => {
+interface propsType {
+    openTestModal: (e: React.MouseEvent<HTMLElement>) => void;
+}
+
+const Main = (props: propsType) => {
+    const { openTestModal } = props;
+
     return (
-        <Routes>
-            {ARR_PATH.map((item, index) => (
+        <div className="main">
+            <Routes>
                 <Route
-                    key={index}
-                    path={item.path}
-                    element={item.element}
-                    // exact="true"
+                    key={0}
+                    path="/"
+                    element={<PageMain openTestModal={openTestModal} />}
                 />
-            ))}
-        </Routes>
+                {ARR_PATH.map((item, index) => (
+                    <Route
+                        key={index + 1}
+                        path={item.path}
+                        element={item.element}
+                        // exact="true"
+                    />
+                ))}
+            </Routes>
+        </div>
     );
 };
 

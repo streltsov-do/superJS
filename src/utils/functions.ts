@@ -146,9 +146,12 @@ export const initTests = (testsData: IntTestUnit[]) => {
     return out;
 };
 
-export const filterTests = (tests:IntTestUnit[], checkedValues: CheckboxValueType[], filter:number) => {
-    switch (filter){
+export const filterTests = (
+    tests: IntTestUnit[],
+    checkedValues: CheckboxValueType[],
+    filter: number,
+) => {
+    switch (filter) {
         case 0:
-
     }
-}
+};
