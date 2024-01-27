@@ -13,20 +13,25 @@ const { Title } = Typography;
 interface propsType {
     openTestModal: (e: React.MouseEvent<HTMLElement>) => void;
     testStarted: boolean;
+    setTestStarted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Header = (props: propsType) => {
-    const { openTestModal, testStarted } = props;
-    const [current, setCurrent] = useState("tests");
+    const { openTestModal, testStarted, setTestStarted } = props;
+    const [current, setCurrent] = useState("superJS");
 
     const onClick: MenuProps["onClick"] = (e) => {
         if (e.key !== "Tests") {
             setCurrent(e.key);
+            setTestStarted(false);
         }
     };
 
     useEffect(() => {
-        setCurrent("Tests");
+        if (testStarted) {
+            console.log("ALO");
+            setCurrent("Tests");
+        }
     }, [testStarted]);
 
     return (

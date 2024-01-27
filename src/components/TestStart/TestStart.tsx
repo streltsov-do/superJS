@@ -3,16 +3,11 @@ import { CheckboxValueType } from "antd/es/checkbox/Group";
 import Title from "antd/es/typography/Title";
 import { useState } from "react";
 import {
-    CAT_CSS,
-    CAT_HTML,
-    CAT_JS,
-    CAT_TS,
     FILTER_CATEGORY,
+    FILTER_SOURCE,
     FILTER_TYPE,
     QuestionCategory,
     QuestionType,
-    TYPE_CODE,
-    TYPE_THEORY,
 } from "../../types/commonTypes";
 
 const formItemLayout = {
@@ -20,18 +15,14 @@ const formItemLayout = {
     wrapperCol: { span: 16 },
 };
 
-const changeFilterCategory = (checkedValues: CheckboxValueType[]) => {
-    const newCategory = checkedValues as QuestionCategory[];
-    // setFilterState((filterState) => ({
-    //     ...filterState,
-    //     Category: newCategory,
-    // }));
-};
+interface propsType {
+    setCategory: (newCategory: QuestionCategory[]) => void;
+    setType: (newCategory: QuestionType[]) => void;
+}
 
-// const defaultCheckedFilterCategory = [CAT_HTML, CAT_JS, CAT_CSS, CAT_TS];
-// const defaultCheckedFilterType = [TYPE_CODE, TYPE_THEORY];
+export const TestStart = (props: propsType) => {
+    const { setCategory, setType } = props;
 
-export const TestStart = () => {
     const [checkedFilterCategory, setCheckedFilterCategory] =
         useState<CheckboxValueType[]>(FILTER_CATEGORY);
 
@@ -47,10 +38,8 @@ export const TestStart = () => {
     const onChangeFilterCategory = (list: CheckboxValueType[]) => {
         setCheckedFilterCategory(list);
 
-        // setFilterState((filterState) => ({
-        //     ...filterState,
-        //     Type: newType,
-        // }));
+        const newCategory = list as QuestionCategory[];
+        setCategory(newCategory);
     };
 
     const onChangeAllFilterCategory: CheckboxProps["onChange"] = (e) => {
@@ -59,17 +48,16 @@ export const TestStart = () => {
 
     const checkedAllFilterType =
         FILTER_TYPE.length === checkedFilterType.length;
+
     const indeterminateFilterType =
         checkedFilterType.length > 0 &&
         checkedFilterType.length < FILTER_TYPE.length;
 
     const onChangeFilterType = (list: CheckboxValueType[]) => {
         setCheckedFilterType(list);
+        const newType = list as QuestionType[];
 
-        // setFilterState((filterState) => ({
-        //     ...filterState,
-        //     Type: newType,
-        // }));
+        setType(newType);
     };
 
     const onChangeAllFilterType: CheckboxProps["onChange"] = (e) => {
@@ -79,7 +67,7 @@ export const TestStart = () => {
     return (
         <Form size="small" {...formItemLayout}>
             <Title level={2}>Тестирование</Title>
-            {/* <Form.Item label="Категории" name="category">
+            <Form.Item label="Категории" name="category">
                 <Col>
                     <Row>
                         <Checkbox
@@ -119,7 +107,7 @@ export const TestStart = () => {
                         />
                     </Row>
                 </Col>
-            </Form.Item> */}
+            </Form.Item>
         </Form>
     );
 };

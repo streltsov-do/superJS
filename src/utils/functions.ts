@@ -3,6 +3,7 @@ import { IntResults, IntTestUnit } from "../types/commonTypes";
 import { IntStateTest } from "../redux/sliceTest";
 import { ANSWER_BAD, ANSWER_GOOD, ANSWER_NOT } from "./constants";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
+import { ARR_CHECK } from "../components/TestUnit/constants";
 
 export function compareNumbers(a: number, b: number) {
     return a - b;
@@ -135,7 +136,7 @@ export const randomizeOrder = (data: IntTestUnit[]) => {
     return outArr;
 };
 
-export const initTests = (testsData: IntTestUnit[]) => {
+export const initStateTest = (testsData: IntTestUnit[]) => {
     const out: IntStateTest[] = [];
     for (let i = 0; i < testsData.length; i++) {
         out.push({
@@ -146,12 +147,8 @@ export const initTests = (testsData: IntTestUnit[]) => {
     return out;
 };
 
-export const filterTests = (
-    tests: IntTestUnit[],
-    checkedValues: CheckboxValueType[],
-    filter: number,
-) => {
-    switch (filter) {
-        case 0:
-    }
+export const initTestUnit = (testsData: IntStateTest[]) => {
+    let out: IntTestUnit[] = ARR_CHECK;
+    out = testsData.map((elem) => ARR_CHECK[elem.id]);
+    return out;
 };

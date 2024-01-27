@@ -26,14 +26,15 @@ import {
     QuestionType,
 } from "../../types/commonTypes";
 import { ARR_CHECK } from "../../components/TestUnit/constants";
-import { ANSWER_BAD, ANSWER_GOOD, ANSWER_NOT } from "../../utils/constants";
 import {
     getResults,
-    initTests,
+    initStateTest,
     randomizeOrder,
     getBgColor,
+    initTestUnit,
 } from "../../utils/functions";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
+import { tableColumns, tableData } from "./constants";
 import "./styles/style.css";
 
 const { Title } = Typography;
@@ -43,43 +44,9 @@ const develop = {
     testButton: false,
 };
 
-const tableColumns = [
-    {
-        key: "color",
-        title: "Цвет",
-        dataIndex: "color",
-    },
-    {
-        key: "description",
-        title: "Значение",
-        dataIndex: "description",
-    },
-];
-
-const tableData = [
-    {
-        key: "1",
-        name: "red",
-        color: <div className="square square--red" />,
-        description: "Неправильный ответ",
-    },
-    {
-        key: "2",
-        name: "yellow",
-        color: <div className="square square--yellow" />,
-        description: "Нет ответа",
-    },
-    {
-        key: "3",
-        name: "green",
-        color: <div className="square square--green" />,
-        description: "Правильный ответ",
-    },
-];
-
 const PageTests = () => {
     const [complete, setComplete] = useState(false);
-    const [showCards, shsetShowCards] = useState(0);
+    const [showCards, setShowCards] = useState(0);
     const [results, setResults] = useState<IntResults>({
         rightAnswers: 0,
         totalQuestions: 0,
@@ -112,7 +79,7 @@ const PageTests = () => {
             ? ARR_CHECK
             : randomizeOrder(ARR_CHECK);
         setTests(newTests);
-        dispatch(CHANGE(initTests(newTests)));
+        dispatch(CHANGE(initStateTest(newTests)));
     };
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -124,15 +91,15 @@ const PageTests = () => {
         if (!complete) {
             res = getResults(ARR_CHECK, testState);
         } else {
-            shsetShowCards(0);
-            updateTests();
+            setShowCards(0);
+            // updateTests();
         }
         setResults(res);
         setComplete(!complete);
     };
 
     const onChangeRadio = (e: RadioChangeEvent) => {
-        shsetShowCards(e.target.value);
+        setShowCards(e.target.value);
     };
 
     const onChangeCheck = (checkedValues: CheckboxValueType[]) => {
@@ -151,7 +118,9 @@ const PageTests = () => {
     };
 
     useEffect(() => {
-        updateTests();
+        const newTests = initTestUnit(testState);
+        // console.log("newTests",newTests)
+        setTests(newTests);
     }, []);
 
     const changeFilterSource = (checkedValues: CheckboxValueType[]) => {
@@ -340,8 +309,20 @@ const PageTests = () => {
                 )}
                 {
                     <Space direction="vertical" size="small">
-                        {filteredTests.map(
-                            (elem, index) =>
+                        {filteredTests.map((elem, index) => {
+                            const user = testState.find(
+                                (element) => element.id === elem.id,
+                            );
+                            const userAnswer =
+                                user === undefined ? -1 : user.answer;
+                            const good =
+                                userAnswer === elem.answer
+                                    ? 1
+                                    : userAnswer === -1
+                                      ? -1
+                                      : 0;
+
+                            return (
                                 (!complete ||
                                     (showCards === 1 &&
                                         results.resultsArray[index] !== 1) ||
@@ -362,18 +343,16 @@ const PageTests = () => {
                                         answer={elem.answer}
                                         explanation={elem.explanation}
                                         complete={complete}
-                                        userAnswer={testState[index].answer}
+                                        userAnswer={userAnswer}
                                         source={elem.source}
                                         code={elem.code}
-                                        bgColor={getBgColor(
-                                            complete,
-                                            results.resultsArray[index],
-                                        )}
+                                        bgColor={getBgColor(complete, good)}
                                         showAnswer={showAnswer}
                                         showCode={showCode}
                                     />
-                                ),
-                        )}
+                                )
+                            );
+                        })}
                     </Space>
                     // )
                 }
