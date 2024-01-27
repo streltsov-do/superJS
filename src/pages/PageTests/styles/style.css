@@ -1,68 +1,70 @@
 /* line 1, style.scss */
 .page-test {
-  padding-left: 20px;
+    padding-left: 20px;
 }
 
 /* line 5, style.scss */
 .square {
-  width: 30px;
-  height: 30px;
+    width: 30px;
+    height: 30px;
 }
 /* line 9, style.scss */
 .square--red {
-  background-color: pink;
+    background-color: pink;
 }
 /* line 13, style.scss */
 .square--yellow {
-  background-color: #ffec59;
+    background-color: #ffec59;
 }
 /* line 17, style.scss */
 .square--green {
-  background-color: lightgreen;
+    background-color: lightgreen;
 }
 
 /* line 22, style.scss */
 pre,
 .title {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  color: rgba(0, 0, 0, 0.88);
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 120%;
-  white-space: pre-wrap;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    color: rgba(0, 0, 0, 0.88);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    white-space: pre-wrap;
 }
 
 /* line 34, style.scss */
 .explanation {
-  white-space: pre-wrap;
-  background-color: lightgray;
+    white-space: pre-wrap;
+    background-color: lightgray;
 }
 
 /* line 39, style.scss */
 .unselectable {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-      user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /* line 46, style.scss */
 .code {
-  white-space: pre-wrap;
-  background-color: gray;
-  color: blue;
+    white-space: pre-wrap;
+    background-color: gray;
+    color: blue;
 }
 
 /* line 52, style.scss */
 .testCard {
-  max-width: 1002px;
-  width: auto;
+    max-width: 1002px;
+    width: auto;
 }
 @media (max-width: 1040px) {
-  /* line 52, style.scss */
-  .testCard {
-    width: 500px;
-  }
+    /* line 52, style.scss */
+    .testCard {
+        width: 500px;
+    }
 }
 
 /*# sourceMappingURL=style.css.map */
